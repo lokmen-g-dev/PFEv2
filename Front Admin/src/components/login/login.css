@@ -1,0 +1,13 @@
+body{
+    background-image: url('https://mdbootstrap.com/img/Photos/Others/architecture.webp') ;
+    background-repeat: no-repeat;
+     background-size: cover;
+      background-position: center center;
+}
+
+#center{
+    margin-top: 50%;
+}
+#padd{
+    margin-top: 2%;
+}
