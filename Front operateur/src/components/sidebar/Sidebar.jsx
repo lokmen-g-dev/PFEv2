@@ -9,8 +9,9 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="sidebar">
-      <div className="top">
+    <div className="sidebar" style={{ backgroundSize: 'cover',backgroundImage: 'url(https://i.pinimg.com/236x/08/5b/e0/085be041c1e433b67beda536fbb84a80.jpg)',  backgroundRepeat:'no-repeat',}}>
+            
+      <div className="top" >
         <Link to="/home" style={{ textDecoration: "none" }}>
           <span className="logo">Admin </span>
         </Link>

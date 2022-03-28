@@ -1,25 +1,22 @@
 import "./widget.scss";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import RouterIcon from '@mui/icons-material/Router';
+import GppMaybeIcon from '@mui/icons-material/GppMaybe';
 
 const Widget = ({ type }) => {
   let data;
 
   //temporary
   const amount = 100;
-  const diff = 20;
+ 
 
   switch (type) {
     case "user":
-      
       data = {
         title: "USERS",
         isMoney: false,
-        link : "See all users" ,
-     
+        
         icon: (
           <PersonOutlinedIcon
             className="icon"
@@ -33,25 +30,47 @@ const Widget = ({ type }) => {
       break;
     case "order":
       data = {
-        title: "",
+        title: "Nomber totale de fortiGate",
         isMoney: false,
-        link: "",
         
+        icon: (
+          <RouterIcon
+            className="icon"
+            style={{
+              backgroundColor: "rgba(218, 165, 32, 0.2)",
+              color: "goldenrod",
+            }}
+          />
+        ),
       };
       break;
     case "earning":
       data = {
-        title: "",
-         link: "",
+        title: "Nomber totale de fortiManager",
+        isMoney: false,
         
+        icon: (
+          <RouterIcon
+            className="icon"
+            style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
+          />
+        ),
       };
       break;
     case "balance":
       data = {
-        title: "",
-        isMoney: true,
-        link: "",
-       
+        title: "Nombre des déclaration de client",
+        
+        
+        icon: (
+          <GppMaybeIcon
+            className="icon"
+            style={{
+              backgroundColor: "rgba(128, 0, 128, 0.2)",
+              color: "purple",
+            }}
+          />
+        ),
       };
       break;
     default:
@@ -64,6 +83,8 @@ const Widget = ({ type }) => {
         <span className="title">{data.title}</span>
         <span className="counter">
           {data.isMoney && "$"} {amount}
+          
+
         </span>
         <span className="link">{data.link}</span>
       </div>

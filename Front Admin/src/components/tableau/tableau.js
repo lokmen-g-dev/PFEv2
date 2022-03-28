@@ -61,7 +61,7 @@ export default function DataTable() {
   
   return (
     
-    <div style={{borderRadius:'10px', height: 450, width: '60%',marginLeft:300 ,marginTop:70,}}>
+    <div style={{ backgroundColor:"transparent",border:'0px', borderRadius:'10px', height: 450, width: '60%',marginLeft:300 ,marginTop:70,}}>
      
       <DataGrid
         rows={tableData}

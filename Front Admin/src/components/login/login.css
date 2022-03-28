@@ -1,8 +1,9 @@
 body{
-    background-image: url('https://mdbootstrap.com/img/Photos/Others/architecture.webp') ;
+    
+    background-image: url('https://www.silicon.fr/wp-content/uploads/2014/09/virtualisation-r%C3%A9seau-mobile-NFV-%C2%A9-Syda-Productions-shutterstock.jpg') ;
     background-repeat: no-repeat;
      background-size: cover;
-      background-position: center center;
+      background-position: center;
 }
 
 #center{

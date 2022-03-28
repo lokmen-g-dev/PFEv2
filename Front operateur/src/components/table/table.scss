@@ -1,7 +1,15 @@
+
+.table{
+  background-image: url('https://img.freepik.com/vecteurs-libre/fond-technologie-numerique-fil-maille-reseau_1017-27428.jpg');
+ background-repeat: no-repeat;
+  background-position: 26%;
+ background-size:contain
+}
 .table {
   .cellWrapper {
     display: flex;
     align-items: center;
+    
 
     .image {
       width: 32px;
