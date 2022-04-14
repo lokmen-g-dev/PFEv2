@@ -3,13 +3,36 @@ import "./widget.scss";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import RouterIcon from '@mui/icons-material/Router';
 import GppMaybeIcon from '@mui/icons-material/GppMaybe';
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from 'axios';
 
+import { useNavigate } from 'react-router-dom';
 const Widget = ({ type }) => {
   let data;
+  let dataa;
 
+
+
+
+
+
+  const Navigate=useNavigate();
+
+  useEffect(async () => {
+    await axios.get("http://localhost:5000/Client/list").then((res) => {
+     
+     Navigate("/home",{
+        state:res.data.length
+      })
+     
+    });
+  }, []);
   //temporary
-  const amount = 100;
- 
+  
+  const { state } = useLocation();
+
 
   switch (type) {
     case "user":
@@ -31,8 +54,7 @@ const Widget = ({ type }) => {
     case "order":
       data = {
         title: "Nomber totale de fortiGate",
-        isMoney: false,
-        
+       
         icon: (
           <RouterIcon
             className="icon"
@@ -82,7 +104,7 @@ const Widget = ({ type }) => {
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
-          {data.isMoney && "$"} {amount}
+          {data && ""} {state}
           
 
         </span>

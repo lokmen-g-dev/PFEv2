@@ -4,16 +4,20 @@ import "./home.scss";
 import Widget from "../../components/widget/Widget";
 import Chart from "../../components/chart/Chart";
 import Featured from "../../components/featured/Featured";
-
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+  
+
 
 const Home = () => {
+  const { state } = useLocation();
+  console.log(state)
   return (
     <div className="home">
     <Sidebar />
     <div className="homeContainer">
       <Navbar />
-      <div className="widgets">
+      <div className="widgets" > 
         <Widget type="user" />
         <Widget type="order" />
         <Widget type="earning" />

@@ -36,11 +36,12 @@ const Sidebar = () => {
        
           <p className="title">USEFUL</p>
         
+          <Link to="/alert" style={{ textDecoration: "none" }}>
           <li>
             <NotificationsNoneIcon className="icon" />
             <span>Notifications</span>
           </li>
-         
+          </Link>
           <p className="title">USER</p>
           <Link to="/Update" style={{ textDecoration: "none" }}>
           <li>

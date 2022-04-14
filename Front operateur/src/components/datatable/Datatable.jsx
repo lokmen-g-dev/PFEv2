@@ -1,51 +1,123 @@
-import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../datatablesource";
-import { Link } from "react-router-dom";
-import { useState } from "react";
 
-const Datatable = () => {
-  const [data, setData] = useState(userRows);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
+import * as React from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DoDisturbIcon from '@mui/icons-material/DoDisturb';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { Button } from "@material-ui/core";
 
-  const actionColumn = [
-    {
-      field: "action",
-      headerName: "Action",
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
-            </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
-              Delete
-            </div>
-          </div>
-        );
-      },
-    },
-  ];
+import { useNavigate } from 'react-router-dom';
+const handleDelete=(id)=>{
+  axios.delete(`http://localhost:5000/ajouter/user/${id}`, ).then((res) => {
+    console.log(res.data)
+    window.location.reload(true);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}
+const columns = [
+  
+  {
+    field: 'name',
+    headerName: 'Nom',
+    width: 190,
+   
+  },
+  {
+    field: 'email',
+    headerName: 'Email',
+    width: 190,
+    
+  },
+  {
+    field: 'tel',
+    headerName: 'Tel ',
+    width: 190,
+
+  },
+  {
+    field: 'password',
+    headerName: 'Mot de passe',
+    width: 210,
+   
+  
+  },
+  {
+    field: 'Etat',
+    headerName: 'Etat',
+    width: 210,
+    
+    
+   
+  
+  },
+
+
+  {
+    field: 'actions',
+    headerName: 'Actions' ,
+    type: 'actions',
+    width: 190,
+   
+
+    renderCell: (params) => {
+      const onClick = () => {
+        const id = params.getValue(params.id, "id");
+        handleDelete(id);
+      }
+      return (    
+        <Button onClick={()=>{onClick()}} style={{ width: "90%", height: "90%", color: "#76abec" }}>
+           < DoDisturbIcon style={{ marginRight:"5%"}}></ DoDisturbIcon>        
+        </Button>
+       )  
+      }
+      
+      
+
+      
+  },
+ 
+];
+
+
+
+export default function Datatable() {
+
+  const [tableData, setTableData] = useState([]);
+  const Navigate=useNavigate();
+
+  useEffect(async () => {
+    await axios.get("http://localhost:5000/Client/list").then((res) => {
+      setTableData(res.data);
+       
+       console.log(res.data)
+      
+     Navigate("/users",{
+        state:res.data.length
+      })
+     
+    });
+  }, []);
+
   return (
-    <div className="datatable">
-
+    <div style={{ height: 400, width: '100%' }}>
       <DataGrid
-        className="datagrid"
-        rows={data}
-        columns={userColumns.concat(actionColumn)}
-        pageSize={9}
-        rowsPerPageOptions={[9]}
+        rows={tableData}
+        columns={columns}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
         checkboxSelection
+        disableSelectionOnClick
       />
     </div>
   );
-};
+}
 
-export default Datatable;
+
+
+

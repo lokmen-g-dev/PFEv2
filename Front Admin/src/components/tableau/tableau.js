@@ -3,8 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from "axios";  
 import { useEffect, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import { GridActionsCellItem } from '@mui/x-data-grid-pro';
+
 
 import { Button } from "@material-ui/core";
 
@@ -33,6 +32,7 @@ export default function DataTable() {
     { field: 'password', headerName: 'Password', width: 110 },
     { field: 'email',headerName: 'Email',width: 200,},
     { field: 'tel' , headerName: 'Tel' , width:140},
+  
     {
       field: 'actions',
       headerName: 'Actions' ,
@@ -48,12 +48,22 @@ export default function DataTable() {
         return (
           <Button onClick={()=>{onClick()}} style={{ width: "100%", height: "100%", color: "#76abec" }}>
              <DeleteIcon  ></DeleteIcon>
+             
           </Button>
+   
          )
+        
        // <GridActionsCellItem icon={<EditIcon />} label="Edit" />,
     
         }
+        
+
+        
     },
+  
+    
+    
+    
     
   ];
   

@@ -10,8 +10,8 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import Mise from "./components/Update/Mise";  
 import Forgot from "./pages/login/Forgot";
-
-
+import Alert from "./components/Update/Alert";
+import Not from "./pages/natification/not";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -27,8 +27,11 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="forgot" element={<Forgot />} />
             <Route path="Update" element={<Mise />}/>
+            <Route path="Alert" element={<Not />}/>
               <Route path="users">
               <Route index element={<List />} />
+
+
               
               <Route path=":userId" element={<Single />} />
               
@@ -39,6 +42,7 @@ function App() {
             </Route>
             <Route path="products">
               <Route index element={<List />} />
+             
               <Route path=":productId" element={<Single />} />
               <Route
                 path="new"
