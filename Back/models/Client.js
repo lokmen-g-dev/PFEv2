@@ -20,16 +20,13 @@ const InscrireSchema = new mongoose.Schema({
       type: Number,
       required:true,
   },
+   operateur:{
+     type:String,
+     required:true,
+   }
   
-  Number: {
-    type: Number,
-    required:true,
-  },
-  Etat:{
-    type:Boolean,
-    default:"___"
 
-  },
+ 
   
     
   },opts);

@@ -9,11 +9,11 @@ import { useEffect } from "react";
 import axios from 'axios';
 
 import { useNavigate } from 'react-router-dom';
-const Widget = (props) => {
+const Widgt = (props) => {
   return (
     <div className="widget">
       <div className="left">
-        <span className="title">{props.title}</span>
+        <span className="title">Reclamation</span>
         <span className="counter">
            {props.len}
         </span>
@@ -22,4 +22,4 @@ const Widget = (props) => {
   );
 };
 
-export default Widget;
+export default Widgt;

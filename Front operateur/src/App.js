@@ -10,8 +10,9 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import Mise from "./components/Update/Mise";  
 import Forgot from "./pages/login/Forgot";
-import Alert from "./components/Update/Alert";
+import Repance from "./components/Update/Repoance";
 import Not from "./pages/natification/not";
+
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -19,14 +20,17 @@ function App() {
     <div className={darkMode ? "app dark" : "app"}>
       <BrowserRouter>
         <Routes>
+        <Route exact path="/" element={<Login  />} />
         
-          <Route path="/">
+          <Route  path="/">
            
             
             <Route path="home" element={<Home />} />
+           
             <Route path="login" element={<Login />} />
             <Route path="forgot" element={<Forgot />} />
             <Route path="Update" element={<Mise />}/>
+            <Route path="Repance" element={<Repance/>}/>
             <Route path="Alert" element={<Not />}/>
               <Route path="users">
               <Route index element={<List />} />

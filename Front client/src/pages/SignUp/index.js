@@ -16,7 +16,11 @@ Coded by www.creative-tim.com
 // @mui material components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
@@ -27,52 +31,76 @@ import MKButton from "components/MKButton";
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 // Material Kit 2 React page layout routes
 import routes from "routes";
-
-import React, { useState} from "react";
+import { useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 // Images
 import bgImage from "assets/images/tt.jpg";
-import { useNavigate} from "react-router-dom";
-
-
-
-
-
+import { useNavigate } from "react-router-dom";
 
 function SignUpBasic() {
-const [admin, setadmin] = useState("");
-const Navigate = useNavigate()
-const handleChange = (e) => {
-  setadmin({ ...admin, [e.target.name]: e.target.value });
-};
-const handleSubmit = (e) => {
-  e.preventDefault();
+  const [admin, setadmin] = useState("");
+  const Navigate = useNavigate();
+  const handleChange = (e) => {
+    setadmin({ ...admin, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  console.log("submitted");
- 
-  axios.post("http://localhost:5000/Client/signin", admin)
-    .then((res) => {
-      console.log(res.data);
-      Navigate("/validation");
-    
+    console.log("submitted");
 
-      //  window.location.href = "/overview";
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+    axios
+      .post("http://localhost:5000/Client/signin", admin)
+      .then((res) => {
+        console.log(res.data);
+        Navigate("/validation");
+
+        //  window.location.href = "/overview";
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  
+
+
+
+  const [operateur, Setoperateur] = useState([]);
+  
+  useEffect(() => {
+    axios.get("http://localhost:5000/operateur/overview").then((res) => {
+          
+      Setoperateur(res.data);
+      
+      });
+      console.log(operateur);
+  }, []);
+
+
+
+
+
+
+
+
+  
+  
+
   return (
     <>
       <DefaultNavbar routes={routes} transparent light sticky />
       <MKBox
-         position=" fixed"
-        top={ 0}
+        position=" fixed"
+        top={0}
         left={0}
         width="100%"
         minHeight="100vh"
         sx={{
-          backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
+          backgroundImage: ({
+            functions: { linearGradient, rgba },
+            palette: { gradients },
+          }) =>
             `${linearGradient(
               rgba(gradients.dark.main, 0.1),
               rgba(gradients.dark.state, 0.1)
@@ -82,8 +110,21 @@ const handleSubmit = (e) => {
           backgroundRepeat: "no-repeat",
         }}
       />
-      <MKBox left="-20%" width="100%" height="100vh" position="relative" zIndex={3}onChange={handleChange}>
-        <Grid container justifyContent="center" width="100%" alignItems="center" height="100%">
+      <MKBox
+        left="-20%"
+        width="100%"
+        height="100vh"
+        position="relative"
+        zIndex={3}
+        onChange={handleChange}
+      >
+        <Grid
+          container
+          justifyContent="center"
+          width="100%"
+          alignItems="center"
+          height="100%"
+        >
           <Grid item xs={11} sm={9} md={5} lg={4} xl={3}>
             <Card>
               <MKBox
@@ -97,8 +138,13 @@ const handleSubmit = (e) => {
                 mb={1}
                 textAlign="center"
               >
-                <MKTypography variant="h4" fontWeight="medium" color="white" margin-top="600 px">
-                S'inscrire
+                <MKTypography
+                  variant="h4"
+                  fontWeight="medium"
+                  color="white"
+                  margin-top="600 px"
+                >
+                  S'inscrire
                 </MKTypography>
               </MKBox>
               <MKBox pt={4} pb={3} px={3}>
@@ -118,7 +164,6 @@ const handleSubmit = (e) => {
                       <MKInput
                         variant="standard"
                         label="Email"
-                        
                         name="email"
                         InputLabelProps={{ shrink: true }}
                         fullWidth
@@ -129,7 +174,6 @@ const handleSubmit = (e) => {
                         variant="standard"
                         label="Mot de passe"
                         type="password"
-                        
                         name="password"
                         InputLabelProps={{ shrink: true }}
                         fullWidth
@@ -150,25 +194,35 @@ const handleSubmit = (e) => {
                         variant="standard"
                         label=" Tel"
                         type="Tel"
-                        
                         name="tel"
                         InputLabelProps={{ shrink: true }}
                         fullWidth
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
-                      <MKInput
-                        variant="standard"
-                        label=" nembre de site"
-                        name="Number"
-                        type="text"
-                        InputLabelProps={{ shrink: true }}
-                        fullWidth
-                      />
+                    <Grid item xs={12} md={20}>
+                      <RadioGroup>{
+                        operateur.map(result=>{
+                          return(
+
+                          
+
+                      <div> 
+                         
+                      <FormControlLabel value={result.name} control={<Radio />} label={result.name} />
+                      
+                </div>
+                      )   })
+                       }
+                       </RadioGroup>
                     </Grid>
                     <Grid container item justifyContent="center">
-                      <MKButton variant="gradient" color="info" fullWidth onClick={handleSubmit}>
-                      S'inscrire
+                      <MKButton
+                        variant="gradient"
+                        color="info"
+                        fullWidth
+                        onClick={handleSubmit}
+                      >
+                        S'inscrire
                       </MKButton>
                     </Grid>
                   </Grid>

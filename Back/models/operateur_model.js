@@ -20,6 +20,7 @@ const OperateurSchema = new mongoose.Schema({
       type: Number,
       required:true,
   },
+    client:[{ type: mongoose.Types.ObjectId, ref: "Ajouter" }]
     
   },opts);
   

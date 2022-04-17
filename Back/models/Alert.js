@@ -1,5 +1,6 @@
 const mongoose= require("mongoose");
 const opts = { toJSON: { virtuals: true } };
+
 const alertSchema = new mongoose.Schema({
  
     Objet: {
@@ -9,8 +10,12 @@ const alertSchema = new mongoose.Schema({
     discription:{
       type: String,
          },
-    Email:{
-      type: String,
+    
+    nb:{
+
+      type:Number,
+      value:1
+
     }
        
   },opts);

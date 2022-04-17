@@ -6,8 +6,10 @@ import { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button } from "@material-ui/core";
 
+
+
 const handleDelete=(id)=>{
-  axios.delete(`http://localhost:5000/ajouter/user/${id}`, ).then((res) => {
+  axios.delete(`http://localhost:5000/Ajouter/delete/${id}`, ).then((res) => {
     console.log(res.data)
     window.location.reload(true);
   })
@@ -15,6 +17,8 @@ const handleDelete=(id)=>{
     console.log(err);
   });
 }
+
+
 const columns = [
   { field: '_id', headerName: 'ID', width: 90 },
   {
@@ -83,9 +87,10 @@ export default function DataGridDemo() {
       setTableData(res.data);
     });
   }, []);
+ 
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ marginTop:'', height: 400, width: '100%' }}>
       <DataGrid
         rows={tableData}
         columns={columns}

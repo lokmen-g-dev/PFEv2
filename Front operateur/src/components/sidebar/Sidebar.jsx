@@ -5,9 +5,13 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const Navigate=useNavigate();
+const logout =()=>{
+  Navigate("/");
+  localStorage.clear()}
   return (
     <div className="sidebar" style={{ backgroundSize: 'cover',backgroundImage: 'url(https://i.pinimg.com/236x/08/5b/e0/085be041c1e433b67beda536fbb84a80.jpg)',  backgroundRepeat:'no-repeat',}}>
             
@@ -49,12 +53,12 @@ const Sidebar = () => {
             <span>Profile</span>
           </li>
           </Link>
-          <Link to="/login"  style={{ textDecoration: "none" }}>
+         
           <li>
             <ExitToAppIcon className="icon"  />
-            <span>Logout</span>
+            <span onClick={logout}>Logout</span>
           </li>
-          </Link>
+          
         </ul>
       </div>
 

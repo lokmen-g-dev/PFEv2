@@ -12,18 +12,39 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from "axios";
+import  { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const theme = createTheme();
 
 export default function Login() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const [operateur, setoperateur] = useState("");
+
+  const Navigate = useNavigate();
+  const handleChange = (e) => {
+    setoperateur({ ...operateur, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("submitted");
+    axios
+      .post("http://localhost:5000/operateur/login", operateur)
+      .then((res) => {
+        localStorage.setItem("access_token", res.data.access_token);
+        console.log(res.data);
+        console.log(res.data.token);
+        if (localStorage.getItem("access_token")) {
+          Navigate("/home");
+        }
+
+        //  window.location.href = "/overview";
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -60,7 +81,7 @@ export default function Login() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" noValidate onChange={handleChange} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -91,11 +112,12 @@ export default function Login() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                onClick={handleSubmit}
               >
-                <Link href="/home" style={{ textDecoration: "none", color:"white"}}>
+                
                 Sign In
               
-                </Link> </Button>
+             </Button>
               
               <Grid container>
                 <Grid item xs>

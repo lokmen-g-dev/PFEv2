@@ -9,6 +9,7 @@ import BorderOuterIcon from '@mui/icons-material/BorderOuter';
 import { Link } from "react-router-dom";
 import PolicyIcon from '@mui/icons-material/Policy';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
+import LocalPostOfficeIcon from '@mui/icons-material/LocalPostOffice';
 
 
 //import { DarkModeContext } from "../../context/darkModeContext";
@@ -33,7 +34,7 @@ function  Sidebar(){
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
               <BorderOuterIcon className="icon" />
-              <span>Branche</span>
+              <span>FortiGate</span>
             </li>
           </Link>
          
@@ -41,15 +42,15 @@ function  Sidebar(){
           <Link to="/Add" style={{ textDecoration: "nano" }}>
             
           <li>
-            <GroupAddIcon className="icon" />
-            <span>Add</span>
+            < LocalPostOfficeIcon className="icon" />
+            <span>Message</span>
           </li>
           </Link>
           <Link to="/set" style={{ textDecoration: "nano" }}>
 
           <li>
             < ErrorIcon className="icon" />
-            <span>Alert Problem</span>
+            <span>Reclamation</span>
           </li>
           </Link>
 

@@ -1,18 +1,20 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
-const Ajouter = require("../models/incrire.js");
 const jwt = require("jsonwebtoken");
 const sgMail = require("@sendgrid/mail");
 const mongoose = require("mongoose");
+const Ajouter = require("../models/Client");
+
 
 sgMail.setApiKey(process.env.API_KEY);
-const verification = require("./admin_verification");
-const  verif = require("../models/verif");
+
 //////VALIDATION/////
+const  verif = require("../models/Code");
+
 const Joi = require("@hapi/joi");
-const code = '19';
-const nb_client = 0 ;
+const code = Math.floor(Math.random() * 101);
+const Operateur = require("../models/operateur_model")
 
 const InscrireSchema = Joi.object({
   name: Joi.string().min(3).required(),
@@ -24,7 +26,7 @@ router.post("/signin", async (req, res) => {
   ///validate all the incoming data in the body
   //const { error } = InscrireSchema.validate(req.body);
   //if (error) return res.send(error.details[0].message);
-
+console.log(code)
   const salt = await bcrypt.genSalt(10);
   const hashedpassword = await bcrypt.hash(req.body.password, salt);
   const Client = new Ajouter({
@@ -32,8 +34,8 @@ router.post("/signin", async (req, res) => {
     email: req.body.email,
     password: hashedpassword,
     tel: req.body.tel,
-    Number: req.body.Number,
-    Etat:"__"
+    operateur:req.body.operateur
+       
   });
  
  //inscrit client
@@ -44,6 +46,10 @@ router.post("/signin", async (req, res) => {
     
     console.log(savedclient);
     // OTP
+const operateur= await Operateur.findOneAndUpdate({operateur:req.body.operateur},{
+  $push:{client:savedclient._id}
+}
+  )
   
     const message = {
       to: savedclient.email,

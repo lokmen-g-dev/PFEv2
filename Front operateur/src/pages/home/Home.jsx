@@ -6,22 +6,49 @@ import Chart from "../../components/chart/Chart";
 import Featured from "../../components/featured/Featured";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-  
-
+import Wid from "../../components/widget/Widget copy";
+import { useState,useEffect } from "react";
+import axios from "axios";
+import Widgt from "../../components/widget/Widget copy";
 
 const Home = () => {
-  const { state } = useLocation();
-  console.log(state)
+  //nb alert
+ const [datale,setDataLe]=useState()
+  
+
+    //nb userss
+    
+    const [datalen,setDataLen]=useState()
+    useEffect(async () => {
+      axios.get("http://localhost:5000/alert/send").then((res) => {
+     
+        setDataLe(res.data.length)
+        console.log(res.data.length)
+       
+      })
+      axios.get("http://localhost:5000/Client/list").then((res) => {
+     
+       setDataLen(res.data.length)
+        console.log(res.data.length)
+       
+      });
+     
+    }, [])
+  
+
+    
+  
+
+  console.log(datalen)
   return (
     <div className="home">
     <Sidebar />
     <div className="homeContainer">
       <Navbar />
       <div className="widgets" > 
-        <Widget type="user" />
-        <Widget type="order" />
-        <Widget type="earning" />
-        <Widget type="balance" />
+        <Widget title="users" len={datalen} />
+        <Widget title="Reclamation" len={datale} />
+
       </div>
       <div className="charts">
         <Featured />

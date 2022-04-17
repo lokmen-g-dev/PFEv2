@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const sgMail = require("@sendgrid/mail");
-const ajoute = require("../models/Aad.js") ;
+const ajoute = require("../models/Fortigate.js") ;
 
 sgMail.setApiKey(process.env.API_KEY);
 
@@ -31,7 +31,7 @@ router.post("/Add", async(req,res)=>{
     });
 ///get 
 
-   
+   //get
 
    router.get("/user",async(req,res)=>{
     try{
@@ -39,7 +39,16 @@ router.post("/Add", async(req,res)=>{
         res.send(ajouter);
     }catch(err){res.json({message:err})}
     })
+    //delete
+    router.delete("/delete/:id",async(req,res)=>{
+        try{
+            const deleteajoute=await ajoute.findByIdAndDelete({_id:req.params.id});
+            console.log(deleteajoute);
+            res.send("deleted");
+        }catch(err){res.json({message:err})}
 
+    })
+    
 
  //Delet operateur
  
