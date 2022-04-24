@@ -6,7 +6,7 @@ const aler = require("../models/Alert") ;
 const Client= require("./Client");
 const { number } = require("@hapi/joi");
 sgMail.setApiKey(process.env.API_KEY);
-
+const verify = require("./Verify")
 
 router.post("/aler", async(req,res)=>{
 

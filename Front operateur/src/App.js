@@ -12,7 +12,9 @@ import Mise from "./components/Update/Mise";
 import Forgot from "./pages/login/Forgot";
 import Repance from "./components/Update/Repoance";
 import Not from "./pages/natification/not";
-
+import Code from "./pages/login/Code";
+import News from "./pages/login/New";
+import PrivateRoute from "./pages/home/privateroute/privateroute";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -21,19 +23,26 @@ function App() {
       <BrowserRouter>
         <Routes>
         <Route exact path="/" element={<Login  />} />
+        <Route element={<PrivateRoute/>}>
+        <Route path="/home" exact element={<Home />} />
         
-          <Route  path="/">
-           
-            
-            <Route path="home" element={<Home />} />
-           
-            <Route path="login" element={<Login />} />
-            <Route path="forgot" element={<Forgot />} />
-            <Route path="Update" element={<Mise />}/>
+        <Route path="Update" element={<Mise />}/>
             <Route path="Repance" element={<Repance/>}/>
             <Route path="Alert" element={<Not />}/>
               <Route path="users">
               <Route index element={<List />} />
+
+
+        </Route>      
+          <Route  path="/">
+           
+            
+
+            <Route path="login" element={<Login />} />
+            <Route path="forgot" element={<Forgot />} />
+            <Route path="new" element={<News />} />
+
+            <Route path="code" element={<Code />} />
 
 
               

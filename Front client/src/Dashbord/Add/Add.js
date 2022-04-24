@@ -1,13 +1,13 @@
 import Sidebar from "Dashbord/Sidebar";
 import NavBar from "Dashbord/NavBar";
-import Updat from "./Updat";
+import DataTable from "./table";
 const Add = () => {
   return (
     <div className="list">
       <Sidebar/>
       <div className="listContainer">
         <NavBar/>
-        <Updat />
+        <DataTable />
       </div>
     </div>
   )

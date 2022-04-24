@@ -3,20 +3,22 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from "axios";  
 import { useEffect, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddButton from './Put';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+
+
 import { Button } from "@material-ui/core";
 
 export default function DataTable() {
 
   const [tableData, setTableData] = useState([]);
   useEffect(async () => {
-    await axios.get("http://localhost:5000/operateur/overview").then((res) => {
+    await axios.get("http://localhost:5000/alert/send").then((res) => {
       setTableData(res.data);
     });
   }, []);
 
   const handleDelete=(id)=>{
-    axios.delete(`http://localhost:5000/operateur/delete/${id}`, ).then((res) => {
+    axios.delete(`http://localhost:5000/Alert/delete/${id}`, ).then((res) => {
       console.log(res.data)
       window.location.reload(true);
     })
@@ -26,17 +28,38 @@ export default function DataTable() {
   }
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 100 },
-    { field: 'name', headerName: 'Name', width: 130 },
-    { field: 'password', headerName: 'Password', width: 110 },
-    { field: 'email',headerName: 'Email',width: 200,},
-    { field: 'tel' , headerName: 'Tel' , width:140},
+    { field: 'Objet', headerName: 'Objet', width: 180 },
+    { field: 'discription',headerName: 'Discription',width: 240,},
+    { field: 'Détail',headerName: 'Détail',width: 180,
+    type: 'actions',
+
+
+    renderCell: (params) => {
+        const onClick = () => {
+          const id = params.getValue(params.id, "id");
+          //handleDelete(id);
+        }
+        return (
+          <Button onClick={()=>{onClick()}} style={{ width: "100%", height: "100%", color: "#76abec" }}>
+             <OpenInNewIcon ></OpenInNewIcon>
+             
+          </Button>
+   
+         )
+        
+       // <GridActionsCellItem icon={<EditIcon />} label="Edit" />,
+    
+        }
+
+
+},
+    
   
     {
       field: 'actions',
       headerName: 'Actions' ,
       type: 'actions',
-      width: 100,
+      width: 150,
      
 
       renderCell: (params) => {
@@ -47,33 +70,6 @@ export default function DataTable() {
         return (
           <Button onClick={()=>{onClick()}} style={{ width: "100%", height: "100%", color: "#76abec" }}>
              <DeleteIcon  ></DeleteIcon>
-             
-          </Button>
-   
-         )
-        
-       // <GridActionsCellItem icon={<EditIcon />} label="Edit" />,
-    
-        }
-        
-
-        
-    },
-    {
-      field: 'actionss',
-      headerName: 'Actions' ,
-      type: 'actions',
-      width: 100,
-     
-
-      renderCell: (params) => {
-        const onClick = () => {
-          const id = params.getValue(params.id, "id");
-          handleDelete(id);
-        }
-        return (
-          <Button onClick={()=>{}} style={{ width: "100%", height: "100%", color: "#76abec" }}>
-             <AddButton / >
              
           </Button>
    
@@ -97,7 +93,7 @@ export default function DataTable() {
   
   return (
     
-    <div style={{ backgroundColor:"transparent",border:'0px', borderRadius:'10px', height: 450, width: '60%',marginLeft:300 ,marginTop:70,}}>
+    <div style={{ backgroundColor:"transparent",border:'0px', borderRadius:'10px', height: 450, width: '70%',marginLeft:210 ,marginTop:50, paddingLeft:'0px'}}>
      
       <DataGrid
         rows={tableData}

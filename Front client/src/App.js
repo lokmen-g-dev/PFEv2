@@ -13,7 +13,7 @@ import routes from "routes";
 /// import interface 
 
 import Home from "./Dashbord/Home";
-import Login from "./Dashbord/Login";
+import SignInBasic from "pages/SignIn";
 import List from "./Dashbord/List";
 //import Single from "./pages/single/Single";
 import Single from "./Dashbord/Single";
@@ -25,7 +25,9 @@ import { productInputs, userInputs } from "./formSource";
 import Mise from "Dashbord/Update/Mise";
 import Set from "Dashbord/Update/alert"
 import Log from "Dashbord/Update/Log";
-import Info from "Dashbord/Update/Info"
+import Info from "Dashbord/Update/Info";
+import Oublier from "pages/SignIn/Oublier";
+import Code from "pages/SignIn/Code";
 export default function App() {
   const { pathname } = useLocation();
 
@@ -65,15 +67,17 @@ export default function App() {
 
           <Route path="/Acceuil" element={<Acceuil />} />     
             <Route path="/Home" element={<Home />} />
+            <Route path="/oublier" element={<Oublier />} />
             <Route path="/info" element={<Info />} />
             <Route path="/log" element={<Log />} />
+            <Route path="/code" element={<Code />} />
             
             <Route path="/validation" element={<Validation />} />
             <Route path="/Update" element={<Mise />} />
             <Route path="/set" element={<Set />} />
 
             <Route path="/Add" element={<Add />} />
-            <Route path="login" element={<Login />} />
+            <Route path="/Login" element={<SignInBasic />} />
             
             <Route path="users">
               <Route index element={<List />} />

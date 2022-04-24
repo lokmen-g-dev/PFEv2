@@ -43,6 +43,7 @@ function SignUpBasic() {
   const Navigate = useNavigate();
   const handleChange = (e) => {
     setadmin({ ...admin, [e.target.name]: e.target.value });
+    console.log(admin)
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,30 +63,14 @@ function SignUpBasic() {
       });
   };
 
-  
-
-
-
   const [operateur, Setoperateur] = useState([]);
-  
+
   useEffect(() => {
     axios.get("http://localhost:5000/operateur/overview").then((res) => {
-          
       Setoperateur(res.data);
-      
-      });
-      console.log(operateur);
+    });
+    console.log(operateur);
   }, []);
-
-
-
-
-
-
-
-
-  
-  
 
   return (
     <>
@@ -200,20 +185,22 @@ function SignUpBasic() {
                       />
                     </Grid>
                     <Grid item xs={12} md={20}>
-                      <RadioGroup>{
-                        operateur.map(result=>{
-                          return(
-
+                      <RadioGroup>
+                        {operateur.map((result) => {
                           
-
-                      <div> 
-                         
-                      <FormControlLabel value={result.name} control={<Radio />} label={result.name} />
-                      
-                </div>
-                      )   })
-                       }
-                       </RadioGroup>
+                          return (
+                            <div>
+                              <FormControlLabel
+                                value={result.name}
+                                control={<Radio name="operateur"/>}
+                                label={result.name}
+                                name="radio"
+                               
+                              />
+                            </div>
+                          ); 
+                        })}
+                      </RadioGroup>
                     </Grid>
                     <Grid container item justifyContent="center">
                       <MKButton

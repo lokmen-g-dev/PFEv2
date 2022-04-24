@@ -4,7 +4,7 @@ import "./home.scss";
 import Widget from "../../components/widget/Widget";
 import Chart from "../../components/chart/Chart";
 import Featured from "../../components/featured/Featured";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Wid from "../../components/widget/Widget copy";
 import { useState,useEffect } from "react";
@@ -12,6 +12,8 @@ import axios from "axios";
 import Widgt from "../../components/widget/Widget copy";
 
 const Home = () => {
+const params = useParams()
+  console.log(params)
   //nb alert
  const [datale,setDataLe]=useState()
   
@@ -26,7 +28,9 @@ const Home = () => {
         console.log(res.data.length)
        
       })
-      axios.get("http://localhost:5000/Client/list").then((res) => {
+      const token= await localStorage.getItem("access_token")
+      console.log(token)
+      axios.get("http://localhost:5000/Client/list", { headers: {"Authorization" : `${token}`} } ).then((res) => {
      
        setDataLen(res.data.length)
         console.log(res.data.length)

@@ -73,7 +73,7 @@ export default function SignIn() {
             fullWidth
            
             id="email"
-            label="Email Address"
+            label="Email "
             name="email"
             autoComplete="email"
             autoFocus
@@ -84,7 +84,7 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Mot de passe"
             type="password"
             id="password"
             autoComplete="current-password"
@@ -98,7 +98,7 @@ export default function SignIn() {
             className={classes.submit}
             onClick={handleSubmit}
            >
-            Sign In
+            S'identifier
            </Button>
            </form>
         

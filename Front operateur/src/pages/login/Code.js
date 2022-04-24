@@ -15,7 +15,7 @@ import  { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
-export default function Forgot() {
+export default function Code() {
   const [operateur, setoperateur] = useState("");
 
   const Navigate = useNavigate();
@@ -31,7 +31,7 @@ export default function Forgot() {
       .then((res) => {
       
         
-          Navigate(`/code`);
+          Navigate(`/new`);
         
 
         //  window.location.href = "/overview";
@@ -74,16 +74,16 @@ export default function Forgot() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-            Entrez votre e-mail
+            Entrez votre OTP
             </Typography>
-            <Box component="form" noValidate onChange={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
                 fullWidth
                
-                label="Adresse E-mail"
-                name="email"
+                label="OTP"
+                name="OTP"
                 autoComplete="email"
                 autoFocus
               />
@@ -97,7 +97,7 @@ export default function Forgot() {
                 onClick={handleSubmit}
                 sx={{ mt: 3, mb: 2 }}
               >
-                <Link href="/code" style={{ textDecoration: "none", color:"white"}}>
+                <Link href="/new" style={{ textDecoration: "none", color:"white"}}>
                 Envoyer
               
                 </Link> </Button>

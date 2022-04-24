@@ -33,11 +33,10 @@ export default function Login() {
     axios
       .post("http://localhost:5000/operateur/login", operateur)
       .then((res) => {
-        localStorage.setItem("access_token", res.data.access_token);
+        localStorage.setItem("access_token", res.data);
         console.log(res.data);
-        console.log(res.data.token);
         if (localStorage.getItem("access_token")) {
-          Navigate("/home");
+          Navigate(`/home`);
         }
 
         //  window.location.href = "/overview";
@@ -79,7 +78,7 @@ export default function Login() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+            S'identifier
             </Typography>
             <Box component="form" noValidate onChange={handleChange} sx={{ mt: 1 }}>
               <TextField
@@ -87,7 +86,7 @@ export default function Login() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Adresse E-mail"
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -97,15 +96,12 @@ export default function Login() {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Mot de passe"
                 type="password"
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+             
               
               <Button
                 type="submit"
@@ -115,14 +111,15 @@ export default function Login() {
                 onClick={handleSubmit}
               >
                 
-                Sign In
+               
+Se connecter
               
              </Button>
               
               <Grid container>
                 <Grid item xs>
                   <Link href="/forgot" style={{ textDecoration: "none", marginLeft:"40%" }} variant="body2">
-                    Forgot password?
+                  Mot de passe oublié?
                   </Link>
                 </Grid>
                </Grid>

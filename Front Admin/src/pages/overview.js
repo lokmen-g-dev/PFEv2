@@ -8,7 +8,7 @@ import AddButton from '../components/addoperateur';
 export default function Overview(){
     return(<div>
         <AppHeader />
-        <div style={{marginLeft:1380,marginTop:10, marginBottom:10, }} ><AddButton /></div>
+        <div style={{marginLeft:1315,marginTop:10, marginBottom:10, }} ><AddButton /></div>
       
          <DataTable />
          

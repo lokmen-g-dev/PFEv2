@@ -4,8 +4,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { makeStyles } from "@material-ui/core/styles";
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+
+import EditIcon from '@mui/icons-material/Edit';
 
 
 import TextField from '@mui/material/TextField';
@@ -44,13 +44,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddButton() {
+
+
+
+    
+  const [tableData, setTableData] = useState([]);
+  useEffect(async () => {
+    await axios.get("http://localhost:5000/operateur/overview").then((res) => {
+      setTableData(res.data);
+    });
+  }, []);
+
+
     const [formData, setFormData] = useState([]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
       };
       const handleSubmit = (e) => {
-
         e.preventDefault();
     
         console.log("submitted");
@@ -59,7 +70,6 @@ export default function AddButton() {
           .then((res) => {
             console.log(res.data)
             window.location.reload(true);
-           
           })
           .catch((err) => {
             console.log(err);
@@ -73,7 +83,7 @@ export default function AddButton() {
 
   return (
     <div>
-      <Button  variant="contained" onClick={handleOpen}>Ajouter opérateur</Button>
+      <div variant="contained" onClick={handleOpen}  >< EditIcon/></div>
       <Modal
         open={open}
         onClose={handleClose}
@@ -84,7 +94,7 @@ export default function AddButton() {
         <div className={classes.paper}>
       
         <Typography  component="h1" variant="h5">
-        Nouvel opérateur
+        
         </Typography>
         <form className={classes.form} onChange={handleChange}>
           <TextField
@@ -139,7 +149,7 @@ export default function AddButton() {
             onClick={handleSubmit}
           >
             
-Ajouter un opérateur
+Modifier
           </Button>
         </form>
       </div>

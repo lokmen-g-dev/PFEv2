@@ -12,10 +12,14 @@ const ajouterRoute = require("./routes/Client");
 const OperateuRoute = require("./routes/operateur_login_route");
 const AjouterRoute = require("./routes/Ajouter")
 const AlertRoute = require("./routes/Alert")
+const FindRoute = require("./routes/Find")
 
 
 app.use('/admin',AdminRoute);
 app.use('/operateur',OperateuRoute);
+app.use('/find', FindRoute);
+
+
 
 app.use('/Client',ajouterRoute);
 app.use('/ajouter',AjouterRoute );

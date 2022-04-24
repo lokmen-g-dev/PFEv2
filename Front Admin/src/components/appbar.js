@@ -40,7 +40,7 @@ export default function AppHeader() {
         
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Welcome 
+          Bienvenue 
           </Typography>
           
             <div>
@@ -69,7 +69,7 @@ export default function AppHeader() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={logout}>Log Out</MenuItem>
+                <MenuItem onClick={logout}>Se déconnecter</MenuItem>
               </Menu>
             </div>
           

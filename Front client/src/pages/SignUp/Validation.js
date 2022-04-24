@@ -52,7 +52,7 @@ function Validation() {
     axios.post("http://localhost:5000/Client/verif", admin)
       .then((res) => {
         
-          Navigate("/login");
+          Navigate("/Login");
         
 
         //  window.location.href = "/overview";
@@ -61,6 +61,28 @@ function Validation() {
         console.log(err);
       });
   };
+
+
+  /// renvoyer 
+
+  const handleSubmit1 = (e) => {
+    e.preventDefault();
+
+   console.log("envoyer");
+   
+    axios.post("http://localhost:5000/Client/renvoyer", admin)
+      .then((res) => {
+        
+           Navigate("/validation");
+        
+
+        //  window.location.href = "/overview";
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
 
   return (
     <>
@@ -116,16 +138,17 @@ function Validation() {
                   <MKBox mt={3} mb={1} textAlign="center">
                     <MKTypography variant="button" color="text">
                      {" "}
-                      <MKTypography
+                      <MKButton
                         component="a"
                         
                         variant="button"
                         color="info"
                         fontWeight="medium"
                         textGradient
+                        onClick={handleSubmit1}
                       >
                        Renvoyer OTP
-                      </MKTypography>
+                      </MKButton>
                     </MKTypography>
                   </MKBox>
                 </MKBox>

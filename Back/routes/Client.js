@@ -5,15 +5,16 @@ const jwt = require("jsonwebtoken");
 const sgMail = require("@sendgrid/mail");
 const mongoose = require("mongoose");
 const Ajouter = require("../models/Client");
-
-
+const Joi = require("@hapi/joi");
+const  verify = require("../routes/Verify");
+const parseJwt = require("../routes/Decode")
 sgMail.setApiKey(process.env.API_KEY);
 
 //////VALIDATION/////
 const  verif = require("../models/Code");
 
-const Joi = require("@hapi/joi");
-const code = Math.floor(Math.random() * 101);
+
+const code = Math.floor(Math.random() * 10052);
 const Operateur = require("../models/operateur_model")
 
 const InscrireSchema = Joi.object({
@@ -34,11 +35,9 @@ console.log(code)
     email: req.body.email,
     password: hashedpassword,
     tel: req.body.tel,
-    operateur:req.body.operateur
-       
+    operateur: req.body.operateur
   });
  
- //inscrit client
 
 
   try {
@@ -46,10 +45,8 @@ console.log(code)
     
     console.log(savedclient);
     // OTP
-const operateur= await Operateur.findOneAndUpdate({operateur:req.body.operateur},{
-  $push:{client:savedclient._id}
-}
-  )
+
+ 
   
     const message = {
       to: savedclient.email,
@@ -61,6 +58,9 @@ const operateur= await Operateur.findOneAndUpdate({operateur:req.body.operateur}
         code:code
       }
     };
+    console.log(savedclient.name);
+
+    console.log(savedclient.operateur);
  
     sgMail
     .send(message)
@@ -73,50 +73,191 @@ const operateur= await Operateur.findOneAndUpdate({operateur:req.body.operateur}
     }
 });
 
+//test code OTP
+
 router.post("/verif",async(req,res)=>{
   const test = new verif({
     OTP: req.body.OTP,
   });
   try{
-      
+         
     const savedtest = await test.save();
     console.log(savedtest);
-  }catch(err){res.json({message:err})} 
-  
-  if (OTP == code) {
+    if (OTP == code) {
 
+      const message = {
+        to: savedclient.email,
+        from:'tnu.devops@gmail.com',
+        subject: "Email confirmation",
+        templateId: 'd-6b1a2a8ca17c471286368441d48d0b28',
+        dynamic_template_data:{
+          name:savedclient.name,
+          code:code
+        }
+      };
+   
+      sgMail
+      .send(message)
+      .then(() => {
+        console.log('Email sent')
+      })
+     
+      
+    }
+
+
+
+
+
+   }catch(err){res.json({message:err})}
+  
+  
+
+});
+
+
+//login client
+
+
+const loginschema = Joi.object({
+    email: Joi.string().min(6).required().email(),
+    password: Joi.string().min(6).required(),
+  });
+
+router.post("/login",async(req,res)=>{
+
+    /////VALIDATE INCOMING ADMIN DATA
+    const { error } = loginschema.validate(req.body); ///validate all the incoming data in the body
+    if (error) return res.status(403).send(error.details[0].message);
+  
+  
+    try{
+      const Client= await Ajouter.findOne({email:req.body.email})
+      if (!Client) return res.status(403).send("Account doesn't exists");
+      console.log(Client)
+      
+      bcrypt.compare(
+        req.body.password,
+        Client.password
+      );
+      
+      const access_token = jwt.sign(
+        { Client: Client._id },
+        process.env.ACCESS_TOKEN
+      );
+        console.log(access_token)
+      res.send(access_token)
+    } catch(err){
+      res.json({message:err}) 
+    }
+  })
+
+
+
+    router.get("/list", verify ,async(req,res)=>{
+      const token = req.header("Authorization");
+console.log(typeof(token))
+const operateur = parseJwt(token) 
+console.log(typeof(operateur))
+console.log(operateur)
+
+      try{
+        const Client= await Ajouter.find({operateur:operateur.Operateur});
+        res.send(Client);
+    }catch(err){res.json({message:err})}
+    })
+
+
+/// renvoyer
+    
+router.post("/renvoyer",async(res)=>{
+  const test = new verif({
+    email:Ajouter.email
+  });
+  try{
+         
+  
+    console.log(test.email);
+    
+
+      const message = {
+        to: savedclient.email,
+        from:'tnu.devops@gmail.com',
+        subject: "Email confirmation",
+        templateId: 'd-6b1a2a8ca17c471286368441d48d0b28',
+        dynamic_template_data:{
+          name:savedclient.name,
+          code:code
+        }
+      };
+   
+      sgMail
+      .send(message)
+      .then(() => {
+        console.log('Email sent')
+      })
+     
+      
+  
+
+
+
+
+
+   }catch(err){res.json({message:err})}
+  
+  
+
+});
+
+
+
+/// ou blie pass
+router.post("/forget", async (req, res) => {
+  ///validate all the incoming data in the body
+  //const { error } = InscrireSchema.validate(req.body);
+  //if (error) return res.send(error.details[0].message);
+console.log(code)
+const emailcheck = await Operateur.findOne({
+  email: req.body.email,
+});
+ 
+ //inscrit client
+
+
+  try {
+    const savedclient = await emailcheck.save();
+    
+    
+    // OTP
+
+ 
+  console.log(savedclient.email)
     const message = {
       to: savedclient.email,
       from:'tnu.devops@gmail.com',
-      subject: "Email confirmation",
-      templateId: 'd-6b1a2a8ca17c471286368441d48d0b28',
+      subject: "Emai confirmation",
+      templateId: 'd-901023562e654d85a7857102fd6ebe3e',
       dynamic_template_data:{
         name:savedclient.name,
         code:code
       }
     };
+    console.log(savedclient.name);
+
+    
  
     sgMail
     .send(message)
     .then(() => {
       console.log('Email sent')
     })
-   
-    
-  }
-
+    res.send(savedclient);
+    } catch (err) {
+    res.send({message:err})
+    }
 });
 
-    router.get("/list",async(req,res)=>{
-    try{
-        const Client= await Ajouter.find();
-        var size = Object.keys(Client).length;
-        console.log(size)
-        res.send(Client);
-    }catch(err){res.json({message:err})}
-    })
-    
- 
 
 
 module.exports = router;

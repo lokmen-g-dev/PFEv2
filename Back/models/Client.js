@@ -22,7 +22,7 @@ const InscrireSchema = new mongoose.Schema({
   },
    operateur:{
      type:String,
-     required:true,
+     
    }
   
 

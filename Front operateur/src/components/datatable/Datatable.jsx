@@ -91,8 +91,10 @@ export default function Datatable() {
   const [tableData, setTableData] = useState([]);
   const Navigate=useNavigate();
 
-  useEffect(async () => {
-    await axios.get("http://localhost:5000/Client/list").then((res) => {
+  useEffect(async () => { 
+    const token= await localStorage.getItem("access_token")
+    console.log(token)
+    await axios.get("http://localhost:5000/Client/list", { headers: {"Authorization" : `${token}`} } ).then((res) => {
       setTableData(res.data);
        
        console.log(res.data)

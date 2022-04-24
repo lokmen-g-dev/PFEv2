@@ -36,7 +36,7 @@ import routes from "routes";
 // Images
 import bgImage from "assets/images/tt.jpg";
 
-function SignInBasic() {
+function Code() {
   const [admin, setadmin] = useState("");
 
   const Navigate = useNavigate();
@@ -48,7 +48,7 @@ function SignInBasic() {
 
     console.log("submitted");
     axios
-      .post("http://localhost:5000/Client/login", admin)
+      .post("http://localhost:5000/Client/forget", admin)
       .then((res) => {
         localStorage.setItem("access_token", res.data.access_token);
         console.log(res.data);
@@ -101,7 +101,7 @@ function SignInBasic() {
                 textAlign="center"
               >
                 <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-                S'identifier
+                Entre votre E-mail
                 </MKTypography>
               </MKBox>
               <MKBox pt={4} pb={3} px={3}>
@@ -109,46 +109,15 @@ function SignInBasic() {
                   <MKBox mb={2}>
                     <MKInput type="email" name="email" label="Email" fullWidth />
                   </MKBox>
-                  <MKBox mb={2}>
-                    <MKInput type="password" name="password" label="mot de passe" fullWidth />
-                  </MKBox>
+                    
                   <MKBox mt={4} mb={1}>
                     <MKButton onClick={handleSubmit} variant="gradient" color="info" fullWidth>
                      Se connecter
                     </MKButton>
                   </MKBox>
 
-                <MKBox mt={2} mb={1} textAlign="center">
-                    <MKTypography variant="button" color="text">
-                    Vous avez oublier Mot passe?{" "}
-                      <MKTypography
-                        component="a"
-                        href="/oublier"
-                        variant="button"
-                        color="info"
-                        fontWeight="medium"
-                        textGradient
-                      >
-                        Oublier 
-                      </MKTypography>
-                    </MKTypography>
-                  
-                 <br></br>
-                    <MKTypography variant="button" color="text">
-                      Vous n&apos;avez pas de compte?{" "}
-                      <MKTypography
-                        component="a"
-                        href="/pages/authentication/signUp"
-                        variant="button"
-                        color="info"
-                        fontWeight="medium"
-                        textGradient
-                      >
-                        S'inscrire
-                      </MKTypography>
-                    </MKTypography>
-                  </MKBox>
-                </MKBox>
+               
+              </MKBox>
               </MKBox>
             </Card>
           </Grid>
@@ -158,4 +127,4 @@ function SignInBasic() {
   );
 }
 
-export default SignInBasic;
+export default Code;
