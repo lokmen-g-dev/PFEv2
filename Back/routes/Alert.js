@@ -5,13 +5,12 @@ const sgMail = require("@sendgrid/mail");
 const aler = require("../models/Alert") ;
 const Client= require("./Client");
 const { number } = require("@hapi/joi");
+const parseJwt = require("../routes/Decode")
+
 sgMail.setApiKey(process.env.API_KEY);
 const verify = require("./Verify")
 
 router.post("/aler", async(req,res)=>{
-
-
-  
 
         const alert = await new aler({
         Objet:req.body.Objet,
@@ -35,7 +34,22 @@ router.post("/aler", async(req,res)=>{
 
         
     });
-///get 
+// get  alert operateur 
+router.get("/list", verify ,async(req,res)=>{
+    const token = req.header("Authorization");
+console.log(typeof(token))
+const alert = parseJwt(token) 
+console.log(typeof(alert))
+console.log(alert)
+
+    try{
+      const alet= await aler.find({objet:alert.Objet});
+      res.send(alet);
+  }catch(err){res.json({message:err})}
+  })
+
+
+///get alert client 
 router.get("/send",async(req,res)=>{
     try{
         const alert= await aler.find();

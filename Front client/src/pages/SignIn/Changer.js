@@ -36,7 +36,7 @@ import routes from "routes";
 // Images
 import bgImage from "assets/images/tt.jpg";
 
-function Code() {
+function Changer() {
   const [admin, setadmin] = useState("");
 
   const Navigate = useNavigate();
@@ -48,13 +48,13 @@ function Code() {
 
     console.log("submitted");
     axios
-      .post("http://localhost:5000/Client/verif", admin)
+      .post("http://localhost:5000/Client/forget", admin)
       .then((res) => {
         localStorage.setItem("access_token", res.data.access_token);
         console.log(res.data);
         console.log(res.data.token);
         if (localStorage.getItem("access_token")) {
-          Navigate("/changer");
+          Navigate("/home");
         }
 
         //  window.location.href = "/overview";
@@ -101,18 +101,21 @@ function Code() {
                 textAlign="center"
               >
                 <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-                Entre votre OTP
+                Modifier votre mot de passe
                 </MKTypography>
               </MKBox>
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
                   <MKBox mb={2}>
-                    <MKInput type="password" name="OTP" label="OTP" fullWidth />
+                    <MKInput type="password" name="password" label="Mot de passe" fullWidth />
+                  </MKBox>
+                  <MKBox mb={2}>
+                    <MKInput type="password" name="email" label="Confirmation" fullWidth />
                   </MKBox>
                     
                   <MKBox mt={4} mb={1}>
                     <MKButton onClick={handleSubmit} variant="gradient" color="info" fullWidth>
-                     Envoyer
+                    Modifier
                     </MKButton>
                   </MKBox>
 
@@ -127,4 +130,4 @@ function Code() {
   );
 }
 
-export default Code;
+export default Changer;

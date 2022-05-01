@@ -45,17 +45,20 @@ router.post("/login",async(req,res)=>{
     const admin= await Admin.findOne({email:req.body.email})
     if (!admin) return res.status(403).send("Account doesn't exists");
 
-    bcrypt.compare(
+   
+    const validpassword = await bcrypt.compare(
       req.body.password,
       admin.password
     );
+    //console.log(validpassword);
+    if (!validpassword) return res.status(400).send("password is incorrect");
     const access_token = jwt.sign(
       { Admin: admin._id },
       process.env.ACCESS_TOKEN
     );
     res.send(access_token)
   } catch(err){
-    res.json({message:err}) 
+    res.send({message:err}) 
   }
 })
 

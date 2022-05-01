@@ -24,9 +24,9 @@ function App() {
         <Routes>
         <Route exact path="/" element={<Login  />} />
         <Route element={<PrivateRoute/>}>
-        <Route path="/home" exact element={<Home />} />
+         <Route path="/home" exact element={<Home />} />
         
-        <Route path="Update" element={<Mise />}/>
+          <Route path="Update" element={<Mise />}/>
             <Route path="Repance" element={<Repance/>}/>
             <Route path="Alert" element={<Not />}/>
               <Route path="users">

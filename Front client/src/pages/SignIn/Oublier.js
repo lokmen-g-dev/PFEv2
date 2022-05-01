@@ -54,7 +54,7 @@ function Oublier() {
         console.log(res.data);
         console.log(res.data.token);
         if (localStorage.getItem("access_token")) {
-          Navigate("/home");
+          Navigate("/code");
         }
 
         //  window.location.href = "/overview";
@@ -111,8 +111,8 @@ function Oublier() {
                   </MKBox>
                     
                   <MKBox mt={4} mb={1}>
-                    <MKButton onClick={handleSubmit} variant="gradient" color="info" fullWidth>
-                     Se connecter
+                    <MKButton  onClick={handleSubmit} variant="gradient" color="info" fullWidth>
+                     Envoyer
                     </MKButton>
                   </MKBox>
 

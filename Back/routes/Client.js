@@ -35,7 +35,8 @@ console.log(code)
     email: req.body.email,
     password: hashedpassword,
     tel: req.body.tel,
-    operateur: req.body.operateur
+    operateur: req.body.operateur,
+    valide:false
   });
  
 
@@ -45,7 +46,6 @@ console.log(code)
     
     console.log(savedclient);
     // OTP
-
  
   
     const message = {
@@ -119,13 +119,14 @@ router.post("/verif",async(req,res)=>{
 //login client
 
 
-const loginschema = Joi.object({
-    email: Joi.string().min(6).required().email(),
-    password: Joi.string().min(6).required(),
-  });
+
 
 router.post("/login",async(req,res)=>{
-
+  const loginschema = Joi.object({
+    email: Joi.string().min(6).required().email(),
+    password: Joi.string().min(6).required(),
+    
+  });
     /////VALIDATE INCOMING ADMIN DATA
     const { error } = loginschema.validate(req.body); ///validate all the incoming data in the body
     if (error) return res.status(403).send(error.details[0].message);
@@ -136,17 +137,19 @@ router.post("/login",async(req,res)=>{
       if (!Client) return res.status(403).send("Account doesn't exists");
       console.log(Client)
       
-      bcrypt.compare(
+      const validpassword = await bcrypt.compare(
         req.body.password,
         Client.password
       );
       
-      const access_token = jwt.sign(
+      if (!validpassword) return res.status(400).send("password is incorrect");
+          const access_token = jwt.sign(
         { Client: Client._id },
         process.env.ACCESS_TOKEN
       );
         console.log(access_token)
       res.send(access_token)
+      
     } catch(err){
       res.json({message:err}) 
     }
@@ -221,17 +224,12 @@ console.log(code)
 const emailcheck = await Operateur.findOne({
   email: req.body.email,
 });
- 
- //inscrit client
-
+  //inscrit client
 
   try {
     const savedclient = await emailcheck.save();
-    
-    
-    // OTP
-
- 
+     
+     
   console.log(savedclient.email)
     const message = {
       to: savedclient.email,

@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const [admin, setadmin] = useState("");
-
+const [error,seterror]= useState("")
   const Navigate = useNavigate();
   const handleChange = (e) => {
     setadmin({ ...admin, [e.target.name]: e.target.value });
@@ -51,9 +51,12 @@ export default function SignIn() {
         //  window.location.href = "/overview";
       })
       .catch((err) => {
-        console.log(err);
+      seterror(err)
       });
+
   };
+  console.log(error);
+
 
   const classes = useStyles();
 

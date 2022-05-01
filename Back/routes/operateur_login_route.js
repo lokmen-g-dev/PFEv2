@@ -134,6 +134,30 @@ router.get("/get", async (req, res) => {
   }
 });
 
+// update
+router.patch("/update/:id", async (req, res) => {
+  try {
+    const salt=await bcrypt.genSalt(10);
+    const hashedpassword=await bcrypt.hash(req.body.password,salt);
+    const operateur = await Operateur.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          name:req.body.name,
+          email:req.body.email,
+          password:hashedpassword,
+          tel:req.body.tel
+          
+        },
+      },{new:true}
+    ); res.json(operateur);
+    console.log(operateur)
+  }catch (err){
+    res.json({message: err});
+  }
+});
+
+
 // forget password
 
 router.post("/forget", async (req, res) => {

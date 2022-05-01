@@ -43,38 +43,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddButton() {
+export default function AddButton(props) {
+console.log(props)
 
 
-
-    
-  const [tableData, setTableData] = useState([]);
-  useEffect(async () => {
-    await axios.get("http://localhost:5000/operateur/overview").then((res) => {
-      setTableData(res.data);
-    });
-  }, []);
+  
 
 
-    const [formData, setFormData] = useState([]);
+    const [formData, setFormData] = useState();
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(formData)
+      
       };
+
       const handleSubmit = (e) => {
         e.preventDefault();
-    
-        console.log("submitted");
-        axios
-          .post("http://localhost:5000/operateur/signin", formData)
-          .then((res) => {
-            console.log(res.data)
-            window.location.reload(true);
-          })
-          .catch((err) => {
-            console.log(err);
+      
+          axios.patch(`http://localhost:5000/operateur/update/${props.id}`, formData).then((res) => {
+           console.log(res.data)
           });
-      };
+        
+    
+           };
     const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);

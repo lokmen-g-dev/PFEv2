@@ -1,117 +1,125 @@
-  
+
+
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-//import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import UpdateIcon from '@mui/icons-material/Update';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { DataGrid } from '@mui/x-data-grid';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DoDisturbIcon from '@mui/icons-material/DoDisturb';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { Button } from "@material-ui/core";
+
+import { useNavigate } from 'react-router-dom';
+const handleDelete=(id)=>{
+  axios.delete(`http://localhost:5000/ajouter/user/${id}`, ).then((res) => {
+    console.log(res.data)
+    window.location.reload(true);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}
+const columns = [
+  
+  {
+    field: 'name',
+    headerName: 'Nom',
+    width: 190,
+   
+  },
+  {
+    field: 'email',
+    headerName: 'Email',
+    width: 190,
+    
+  },
+  {
+    field: 'tel',
+    headerName: 'Tel ',
+    width: 190,
+
+  },
+  {
+    field: 'password',
+    headerName: 'Mot de passe',
+    width: 210,
+   
+  
+  },
+  {
+    field: 'Etat',
+    headerName: 'Etat',
+    width: 210,
+    
+    
+   
+  
+  },
 
 
-const theme = createTheme();
+  {
+    field: 'actions',
+    headerName: 'Actions' ,
+    type: 'actions',
+    width: 190,
+   
 
-function Updat() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    renderCell: (params) => {
+      const onClick = () => {
+        const id = params.getValue(params.id, "id");
+        handleDelete(id);
+      }
+      return (    
+        <Button onClick={()=>{onClick()}} style={{ width: "90%", height: "90%", color: "#76abec" }}>
+           < DoDisturbIcon style={{ marginRight:"5%"}}></ DoDisturbIcon>        
+        </Button>
+       )  
+      }
+      
+      
+
+      
+  },
+ 
+];
+
+
+
+export default function Datatable() {
+
+  const [tableData, setTableData] = useState([]);
+  const Navigate=useNavigate();
+
+  useEffect(async () => { 
+    const token= await localStorage.getItem("access_token")
+    console.log(token)
+    await axios.get(`http://localhost:5000/operateur/overview/${token}`, ).then((res)=> {
+      setTableData(res.data);
+       
+       console.log(res.data)
+      
+     Navigate("/update",{
+        state:res.data.length
+      })
+     
     });
-  };
+  }, []);
 
   return (
-      
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <UpdateIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Update
-          </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="Name"
-                  label="Name"
-                  name="Name"
-                  autoComplete="Name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="Tel"
-                  label="Tel"
-                  type="Tel"
-                  id="Tel"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive  email."
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-             Modifier 
-            </Button>
-            <Grid container justifyContent="flex-end">
-            </Grid>
-          </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+    <div style={{ height: 400, width: '100%' }}>
+      <DataGrid
+        rows={tableData}
+        columns={columns}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
+        checkboxSelection
+        disableSelectionOnClick
+      />
+    </div>
   );
 }
-export default Updat;
+
+
+
+

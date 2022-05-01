@@ -67,13 +67,10 @@ export default function DataTable() {
      
 
       renderCell: (params) => {
-        const onClick = () => {
-          const id = params.getValue(params.id, "id");
-          handleDelete(id);
-        }
+        const id = params.getValue(params.id, "id");
         return (
           <Button onClick={()=>{}} style={{ width: "100%", height: "100%", color: "#76abec" }}>
-             <AddButton / >
+             <AddButton id={id} / >
              
           </Button>
    

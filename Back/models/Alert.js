@@ -1,4 +1,6 @@
+const { object } = require("@hapi/joi");
 const mongoose= require("mongoose");
+const Operateur = require("./operateur_model");
 const opts = { toJSON: { virtuals: true } };
 
 const alertSchema = new mongoose.Schema({
@@ -16,7 +18,8 @@ const alertSchema = new mongoose.Schema({
       type:Number,
       value:1
 
-    }
+    },
+    Operateur:[{ type: mongoose.Types.ObjectId, ref: "Operateur" }]
        
   },opts);
   

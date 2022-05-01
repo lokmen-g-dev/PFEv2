@@ -28,6 +28,7 @@ import Log from "Dashbord/Update/Log";
 import Info from "Dashbord/Update/Info";
 import Oublier from "pages/SignIn/Oublier";
 import Code from "pages/SignIn/Code";
+import Changer from "pages/SignIn/Changer"
 export default function App() {
   const { pathname } = useLocation();
 
@@ -71,6 +72,7 @@ export default function App() {
             <Route path="/info" element={<Info />} />
             <Route path="/log" element={<Log />} />
             <Route path="/code" element={<Code />} />
+            <Route path="/changer" element={<Changer />} />
             
             <Route path="/validation" element={<Validation />} />
             <Route path="/Update" element={<Mise />} />

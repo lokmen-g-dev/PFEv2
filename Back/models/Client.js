@@ -23,7 +23,13 @@ const InscrireSchema = new mongoose.Schema({
    operateur:{
      type:String,
      
-   }
+   },
+   valide:{
+    type:Boolean,
+    required:true,
+
+   
+  },
   
 
  
