@@ -1,6 +1,6 @@
 const mongoose= require("mongoose");
 const opts = { toJSON: { virtuals: true } };
-const verifSchema = new mongoose.Schema({
+const OTPSchema = new mongoose.Schema({
  
     OTP: {
       type: String,
@@ -11,6 +11,6 @@ const verifSchema = new mongoose.Schema({
     
   },opts);
   
-  const verif = mongoose.model("verif", verifSchema);
+  const Otp = mongoose.model("OTP", OTPSchema);
 
-  module.exports = verif;
+  module.exports =Otp;

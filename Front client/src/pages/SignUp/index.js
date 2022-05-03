@@ -54,8 +54,8 @@ function SignUpBasic() {
       .post("http://localhost:5000/Client/signin", admin)
       .then((res) => {
         console.log(res.data);
-        Navigate("/validation");
-
+        Navigate(`/validation/${res.data.token}/${res.data.id}`);
+      
         //  window.location.href = "/overview";
       })
       .catch((err) => {

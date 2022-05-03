@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Button } from "@material-ui/core";
 
 import { useNavigate } from 'react-router-dom';
@@ -48,7 +49,7 @@ const columns = [
   },
   {
     field: 'status',
-    headerName: 'Etat',
+    headerName: 'Status',
     width: 210,
     
     
@@ -71,7 +72,7 @@ const columns = [
       }
       return (    
         <Button onClick={()=>{onClick()}} style={{ width: "90%", height: "90%", color: "#76abec" }}>
-           < DeleteIcon style={{ marginRight:"5%"}}></ DeleteIcon>        
+           < DoDisturbIcon style={{ marginRight:"5%"}}></ DoDisturbIcon>        
         </Button>
        )  
       }
@@ -85,7 +86,7 @@ const columns = [
 
 
 
-export default function Datatable() {
+export default function Data() {
 
   const [tableData, setTableData] = useState([]);
   const Navigate=useNavigate();
@@ -93,7 +94,7 @@ export default function Datatable() {
   useEffect(async () => { 
     const token= await localStorage.getItem("access_token")
     console.log(token)
-    await axios.get("http://localhost:5000/Client/list", { headers: {"Authorization" : `${token}`} } ).then((res) => {
+    await axios.get("http://localhost:5000/Client/listatt", { headers: {"Authorization" : `${token}`} } ).then((res) => {
       setTableData(res.data);
        
        console.log(res.data)

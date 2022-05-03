@@ -21,6 +21,7 @@ const params = useParams()
     //nb userss
     
     const [datalen,setDataLen]=useState()
+    const [datal,setDataL]=useState();
     useEffect(async () => {
       axios.get("http://localhost:5000/alert/send").then((res) => {
      
@@ -28,6 +29,7 @@ const params = useParams()
         console.log(res.data.length)
        
       })
+      
       const token= await localStorage.getItem("access_token")
       console.log(token)
       axios.get("http://localhost:5000/Client/list", { headers: {"Authorization" : `${token}`} } ).then((res) => {
@@ -36,6 +38,8 @@ const params = useParams()
         console.log(res.data.length)
        
       });
+
+      
      
     }, [])
   
@@ -52,6 +56,8 @@ const params = useParams()
       <div className="widgets" > 
         <Widget title="users" len={datalen} />
         <Widget title="Reclamation" len={datale} />
+        <Widget title="Nouvelle Inscription" len={datale} />
+
 
       </div>
       <div className="charts">

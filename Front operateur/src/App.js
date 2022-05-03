@@ -14,7 +14,9 @@ import Repance from "./components/Update/Repoance";
 import Not from "./pages/natification/not";
 import Code from "./pages/login/Code";
 import News from "./pages/login/New";
+import Att from "./pages/user/Attent";
 import PrivateRoute from "./pages/home/privateroute/privateroute";
+import Accepte from "./pages/user/accepte";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -25,7 +27,8 @@ function App() {
         <Route exact path="/" element={<Login  />} />
         <Route element={<PrivateRoute/>}>
          <Route path="/home" exact element={<Home />} />
-        
+         <Route path="/attent" element={<Att/>}/>
+         <Route path="/users" element={<Accepte/>}/>
           <Route path="Update" element={<Mise />}/>
             <Route path="Repance" element={<Repance/>}/>
             <Route path="Alert" element={<Not />}/>

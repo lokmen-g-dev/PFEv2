@@ -74,36 +74,29 @@ router.post("/signin", async (req, res) => {
     email: req.body.email,
     tel: req.body.tel,
   });
-
-  try {
-    const savedOperateur = await operateur.save();
-  
-    //Add operateur
-    console.log("salut")
+  const savedOperateur = await operateur.save();
+      try{
+             
     
-    const message = {
-      to: savedOperateur.email,
-      from: "tnu.devops@gmail.com",
-      subject: "Email confirmation",
-      templateId: "d-901023562e654d85a7857102fd6ebe3e",
-      dynamic_template_data: {
-        email: savedOperateur.email,
-        tel: savedOperateur.tel,
-        name: savedOperateur.name,
-        password: savedOperateur.password,
+          const message = {
+            to: savedOperateur.email,
+            from:'tnu.devops@gmail.com',
+            subject: "Email confirmation",
+            templateId: 'd-71496dec14d54a7b9e9b2904853bd77e',
+            
+          };
+       
+          sgMail
+          .send(message)
+          .then(() => {
+            console.log('Email sent')
+          })
+         
+          
+ 
+    
+       }catch(err){res.json({message:err})}
       
-    }
-  };
-
-  sgMail
-  .send(message)
-  .then(() => {
-    console.log('Email sent')
-  })
-  res.send(savedclient);
-  } catch (err) {
-  res.send({message:err})
-  }
 });
 
 router.get("/overview", async (req, res) => {
@@ -150,7 +143,8 @@ router.patch("/update/:id", async (req, res) => {
           
         },
       },{new:true}
-    ); res.json(operateur);
+    );
+     res.send(operateur);
     console.log(operateur)
   }catch (err){
     res.json({message: err});

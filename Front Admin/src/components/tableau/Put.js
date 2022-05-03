@@ -93,7 +93,7 @@ console.log(props)
           <TextField
             variant="outlined"
             margin="normal"
-            required
+            
             fullWidth
             id="name"
             label="Nom"
@@ -104,7 +104,7 @@ console.log(props)
           <TextField
             variant="outlined"
             margin="normal"
-            required
+            
             fullWidth
             name="password"
             label="Mot de passe"
@@ -116,7 +116,7 @@ console.log(props)
            <TextField
             variant="outlined"
             margin="normal"
-            required
+            
             fullWidth
             name="email"
             label="Email"
@@ -126,7 +126,7 @@ console.log(props)
             <TextField
             variant="outlined"
             margin="normal"
-            required
+            
             fullWidth
             name="tel"
             label="Tel"

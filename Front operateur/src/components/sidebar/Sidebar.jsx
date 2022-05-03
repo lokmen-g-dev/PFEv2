@@ -37,6 +37,13 @@ const logout =()=>{
               <span>Users</span>
             </li>
           </Link>
+
+          <Link to="/attent" style={{ textDecoration: "none" }}>
+            <li>
+              <PersonOutlineIcon className="icon" />
+              <span>pending users</span>
+            </li>
+          </Link>
        
           <p className="title">USEFUL</p>
         

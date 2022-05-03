@@ -74,7 +74,7 @@ export default function App() {
             <Route path="/code" element={<Code />} />
             <Route path="/changer" element={<Changer />} />
             
-            <Route path="/validation" element={<Validation />} />
+            <Route path="/validation/:token/:id" element={<Validation />} />
             <Route path="/Update" element={<Mise />} />
             <Route path="/set" element={<Set />} />
 

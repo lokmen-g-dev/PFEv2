@@ -24,7 +24,7 @@ import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
 import React, { useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 // Material Kit 2 React example components
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -38,21 +38,25 @@ import axios from "axios";
 import bgImage from "assets/images/tt.jpg";
 
 function Validation() {
-  const [admin, setadmin] = useState("");
+  const [otp, setOtp] = useState("");
+  const {token,id}=useParams()
+  console.log(token)
+  console.log(id)
 
   const Navigate = useNavigate();
   const handleChange = (e) => {
-    setadmin({ ...admin, [e.target.name]: e.target.value });
+    setOtp({ ...otp, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
 
     console.log("submitted");
+  
    
-    axios.post("http://localhost:5000/Client/verif", admin)
+    axios.put(`http://localhost:5000/Client/verif/${token}/${id}`, otp)
       .then((res) => {
         
-          Navigate("/Login");
+          Navigate("/Home");
         
 
         //  window.location.href = "/overview";
@@ -65,12 +69,12 @@ function Validation() {
 
   /// renvoyer 
 
-  const handleSubmit1 = (e) => {
+  const handleResend = (e) => {
     e.preventDefault();
 
    console.log("envoyer");
    
-    axios.post("http://localhost:5000/Client/renvoyer", admin)
+    axios.post("http://localhost:5000/Client/renvoyer")
       .then((res) => {
         
            Navigate("/validation");
@@ -127,11 +131,11 @@ function Validation() {
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
                   <MKBox mb={2}>
-                    <MKInput type="password" name="OTP" label="Insert OTP" fullWidth />
+                    <MKInput type="password" name="otp" label="Insert OTP" fullWidth />
                   </MKBox>
                  
-                  <MKBox mt={4} mb={1}>
-                    <MKButton onClick={handleSubmit} variant="gradient" color="info" fullWidth>
+                  <MKBox mt={4} mb={1} onChange={handleChange}>
+                    <MKButton onClick={handleSubmit}  variant="gradient" color="info" fullWidth>
                       Verify OTP
                     </MKButton>
                   </MKBox>
@@ -145,7 +149,7 @@ function Validation() {
                         color="info"
                         fontWeight="medium"
                         textGradient
-                        onClick={handleSubmit1}
+                        onClick={handleSubmit}
                       >
                        Renvoyer OTP
                       </MKButton>

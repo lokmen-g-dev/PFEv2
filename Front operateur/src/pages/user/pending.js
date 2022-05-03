@@ -6,12 +6,12 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import DoDisturbIcon from '@mui/icons-material/DoDisturb';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Button } from "@material-ui/core";
 
 import { useNavigate } from 'react-router-dom';
 const handleDelete=(id)=>{
-  axios.delete(`http://localhost:5000/ajouter/user/${id}`, ).then((res) => {
+  axios.patch(`http://localhost:5000/Client/update/${id}`, ).then((res) => {
     console.log(res.data)
     window.location.reload(true);
   })
@@ -48,7 +48,7 @@ const columns = [
   },
   {
     field: 'status',
-    headerName: 'Etat',
+    headerName: 'Status',
     width: 210,
     
     
@@ -71,7 +71,7 @@ const columns = [
       }
       return (    
         <Button onClick={()=>{onClick()}} style={{ width: "90%", height: "90%", color: "#76abec" }}>
-           < DeleteIcon style={{ marginRight:"5%"}}></ DeleteIcon>        
+           < CheckCircleOutlineIcon style={{ marginRight:"5%"}}></ CheckCircleOutlineIcon>        
         </Button>
        )  
       }
@@ -93,12 +93,12 @@ export default function Datatable() {
   useEffect(async () => { 
     const token= await localStorage.getItem("access_token")
     console.log(token)
-    await axios.get("http://localhost:5000/Client/list", { headers: {"Authorization" : `${token}`} } ).then((res) => {
+    await axios.get("http://localhost:5000/Client/listatt", { headers: {"Authorization" : `${token}`} } ).then((res) => {
       setTableData(res.data);
        
        console.log(res.data)
       
-     Navigate("/users",{
+     Navigate("/attent",{
         state:res.data.length
       })
      

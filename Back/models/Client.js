@@ -27,9 +27,15 @@ const InscrireSchema = new mongoose.Schema({
    valide:{
     type:Boolean,
     required:true,
-
+    default:false,
    
   },
+  status:{
+    type:String,
+    default:'en attente'
+    
+
+  }
   
 
  
