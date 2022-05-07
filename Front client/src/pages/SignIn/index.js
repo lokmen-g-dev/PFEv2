@@ -47,14 +47,17 @@ function SignInBasic() {
     e.preventDefault();
 
     console.log("submitted");
+    
     axios
       .post("http://localhost:5000/Client/login", admin)
       .then((res) => {
         localStorage.setItem("access_token", res.data.access_token);
-        console.log(res.data);
-        console.log(res.data.token);
+        localStorage.setItem("id", res.data.id);
+        console.log(res.data.id);
+
+        console.log(res.data.access_token);
         if (localStorage.getItem("access_token")) {
-          Navigate("/home");
+          Navigate(`/home/${res.data.id}`);
         }
 
         //  window.location.href = "/overview";

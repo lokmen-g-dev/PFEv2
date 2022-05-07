@@ -4,7 +4,6 @@ const OTPSchema = new mongoose.Schema({
  
     OTP: {
       type: String,
-      required: true,
     
     },
    

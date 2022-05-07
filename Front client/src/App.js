@@ -11,7 +11,7 @@ import Acceuil from "layouts/pages/Acceuil";
 // Material Kit 2 React routes
 import routes from "routes";
 /// import interface 
-
+import Attente from "Dashbord/Attendre";
 import Home from "./Dashbord/Home";
 import SignInBasic from "pages/SignIn";
 import List from "./Dashbord/List";
@@ -67,11 +67,12 @@ export default function App() {
         <Route path="*" element={<Navigate to="/Acceuil" />} />
 
           <Route path="/Acceuil" element={<Acceuil />} />     
-            <Route path="/Home" element={<Home />} />
+            <Route path="/Home/:id" element={<Home />} />
             <Route path="/oublier" element={<Oublier />} />
             <Route path="/info" element={<Info />} />
             <Route path="/log" element={<Log />} />
             <Route path="/code" element={<Code />} />
+            <Route path="/attente" element={<Attente />} />
             <Route path="/changer" element={<Changer />} />
             
             <Route path="/validation/:token/:id" element={<Validation />} />

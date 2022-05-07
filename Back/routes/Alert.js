@@ -8,32 +8,72 @@ const { number } = require("@hapi/joi");
 const parseJwt = require("../routes/Decode")
 
 sgMail.setApiKey(process.env.API_KEY);
-const verify = require("./Verify")
+const verify = require("./Verify");
+const Operateur = require("../models/operateur_model");
+
+router.post("/Add/:operateur/:clientId", async(req,res)=>{
+
+    console.log("salut")
+
+        const alerts = await new aler({
+            Objet:req.body.Objet,
+            discription:req.body.discription,
+            Operateur:req.params.operateur,
+            client:req.params.ClientId
+        
+    })
+   
+    try{
+        
+        const savedalert = await alerts.save();
+    //Add operateur
+            res.send( savedalert);
+    }catch(err){
+        res.send({message:err})
+    }
+ 
+        
+    });
+
 
 router.post("/aler", async(req,res)=>{
+
+const  token = req.header("Authorization")
+    const token_decode = await jwt.decode(token)
+    console.log(token_decode)
 
         const alert = await new aler({
         Objet:req.body.Objet,
         discription:req.body.discription,
-        
-         
-        
+        Operateur:token_decode.Client.operateur,
+        Client:token_decode.Client.id
+      
     })
     
- 
- 
-    try{
-        
+     
+    try{        
         const savedalert = await alert.save();
     //Add operateur
             res.send(savedalert);
-             console.log(savedalert.nb)
+             
     }catch(err){
         res.send({message:err})
     }
 
-        
     });
+
+    router.get("/alers/:operateur/:ClientId", async(req,res)=>{
+        try{
+            const getajoute=await aler.find({Client:req.params.ClientId , Operateur:req.params.operateur});
+            res.send(getajoute);
+
+        }catch(err){res.json({message:err})}
+    })
+    
+
+
+
+
 // get  alert operateur 
 router.get("/list", verify ,async(req,res)=>{
     const token = req.header("Authorization");

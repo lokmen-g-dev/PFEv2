@@ -40,14 +40,21 @@ router.post("/Add", async(req,res)=>{
     }catch(err){res.json({message:err})}
     })
     //delete
-    router.delete("/delete/:id",async(req,res)=>{
-        try{
-            const deleteajoute=await ajoute.findByIdAndDelete({_id:req.params.id});
-            console.log(deleteajoute);
-            res.send("deleted");
-        }catch(err){res.json({message:err})}
+    router.delete("/delete/:id", async (req, res) => {
+        try {
+          const deleteajoute = await ajoute.findByIdAndDelete({
+            _id: req.params.id,
+          });
+          console.log(deleteajoute);
+          res.send("deleted");
+        } catch (err) {
+          res.json({ message: err });
+        }
+      });
 
-    })
+
+
+
     
 
  //Delet operateur

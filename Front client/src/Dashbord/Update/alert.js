@@ -6,7 +6,7 @@ import AddButton from "./Add";
 const Set = () => {
 
         
-  localStorage.setItem("terma",45454)
+
   
   return (
     <div className="list">

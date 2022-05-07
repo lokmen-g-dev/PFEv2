@@ -23,12 +23,14 @@ const params = useParams()
     const [datalen,setDataLen]=useState()
     const [datal,setDataL]=useState();
     useEffect(async () => {
+      //alert liset nb
       axios.get("http://localhost:5000/alert/send").then((res) => {
      
         setDataLe(res.data.length)
         console.log(res.data.length)
        
       })
+      // client list nb
       
       const token= await localStorage.getItem("access_token")
       console.log(token)
@@ -38,6 +40,14 @@ const params = useParams()
         console.log(res.data.length)
        
       });
+      //liste en attent
+      const token1= await localStorage.getItem("access_token")
+
+      axios.get("http://localhost:5000/Client/listatt", { headers: {"Authorization" : `${token1}`} } ).then((res) => {
+     
+        setDataL(res.data.length)
+        console.log(res.data.length)
+      })
 
       
      
@@ -56,7 +66,7 @@ const params = useParams()
       <div className="widgets" > 
         <Widget title="users" len={datalen} />
         <Widget title="Reclamation" len={datale} />
-        <Widget title="Nouvelle Inscription" len={datale} />
+        <Widget title="Nouvelle Inscription" len={datal} />
 
 
       </div>

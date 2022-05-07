@@ -77,18 +77,14 @@ export default function DataTable() {
         
        // <GridActionsCellItem icon={<EditIcon />} label="Edit" />,
     
-        }
-        
-
+       }
+     
         
     },
-  
     
+     
     
-    
-    
-  ];
-  
+  ]; 
  
   
   return (

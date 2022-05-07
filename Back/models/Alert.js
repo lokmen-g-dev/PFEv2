@@ -19,7 +19,8 @@ const alertSchema = new mongoose.Schema({
       value:1
 
     },
-    Operateur:[{ type: mongoose.Types.ObjectId, ref: "Operateur" }]
+    Operateur:{ type: mongoose.Types.ObjectId, ref: "Operateur" },
+    Client:{ type: mongoose.Types.ObjectId, ref: "Ajouter" }
        
   },opts);
   

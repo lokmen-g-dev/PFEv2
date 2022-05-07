@@ -12,7 +12,7 @@ const Mise = () => {
       <Sidebar/>
       <div className="listContainer">
         <NavBar/>
-        <Updat />
+        <Updat/>
       </div>
     </div>
   )

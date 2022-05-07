@@ -40,10 +40,10 @@ const [error,seterror]= useState("")
     console.log("submitted");
     axios
       .post("http://localhost:5000/admin/login", admin)
-      .then((res) => {
-        localStorage.setItem("access_token", res.data.access_token);
-        console.log(res.data);
-        console.log(res.data.token);
+        .then((res) => {
+          localStorage.setItem("access_token", res.data.access_token);
+          console.log(res.data);
+          console.log(res.data.token);
         if (localStorage.getItem("access_token")) {
           Navigate("/overview");
         }

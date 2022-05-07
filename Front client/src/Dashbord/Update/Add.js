@@ -53,7 +53,7 @@ export default function AddButton() {
     
         console.log("submitted");
         axios
-          .post("http://localhost:5000/alert/aler", formData)
+          .post("http://localhost:5000/alert/aler/62717e615d328b6c89cd3864/627285fed795269c5b489cdc", formData)
           .then((res) => {
             console.log(res.data)
             window.location.reload(true);

@@ -1,48 +1,43 @@
-const { boolean } = require("@hapi/joi");
-const mongoose= require("mongoose");
+const mongoose = require("mongoose");
 const opts = { toJSON: { virtuals: true } };
-const InscrireSchema = new mongoose.Schema({
- 
+const InscrireSchema = new mongoose.Schema(
+  {
     name: {
       type: String,
       required: true,
     },
-    email:{
-      type: String,
-        required:true,
-
-    },
-  password: {
+    email: {
       type: String,
       required: true,
-    }, 
+    },
+    password: {
+      type: String,
+      required: true,
+    },
     tel: {
       type: Number,
-      required:true,
+      required: true,
+    },
+    operateur: {
+      type: String,
+    },
+    valide: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    status: {
+      type: String,
+      default: "en attente",
+    },
+    date_accept: {
+      type: Date,
+      default:0
+    },
   },
-   operateur:{
-     type:String,
-     
-   },
-   valide:{
-    type:Boolean,
-    required:true,
-    default:false,
-   
-  },
-  status:{
-    type:String,
-    default:'en attente'
-    
+  opts
+);
 
-  }
-  
+const Ajouter = mongoose.model("Ajouter", InscrireSchema);
 
- 
-  
-    
-  },opts);
-  
-  const Ajouter = mongoose.model("Ajouter", InscrireSchema);
-
-  module.exports = Ajouter;
+module.exports = Ajouter;

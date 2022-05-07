@@ -6,8 +6,25 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import React, { useState , useEffect } from "react";
+
 
 const Sidebar = () => {
+
+
+  const [operateur, Setoperateur] = useState([]);
+
+  useEffect(() => {
+    const token=   localStorage.getItem("access_token")
+           console.log(token)
+    axios.get(`http://localhost:5000/operateur/get`,{ headers: {"Authorization" : `${token}`} }).then((res) => {
+      Setoperateur(res.data);
+    });
+    console.log(operateur);
+  }, []);
+
+
   const Navigate=useNavigate();
 const logout =()=>{
   Navigate("/");
@@ -17,7 +34,7 @@ const logout =()=>{
             
       <div className="top" >
         <Link to="/home" style={{ textDecoration: "none" }}>
-          <span className="logo">Admin </span>
+          <span className="logo">Admin {operateur.name} </span>
         </Link>
       </div>
       <hr />
@@ -54,7 +71,7 @@ const logout =()=>{
           </li>
           </Link>
           <p className="title">USER</p>
-          <Link to="/Update" style={{ textDecoration: "none" }}>
+          <Link to="/update" style={{ textDecoration: "none" }}>
           <li>
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>

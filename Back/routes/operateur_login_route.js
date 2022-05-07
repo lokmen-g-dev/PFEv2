@@ -31,7 +31,8 @@ router.post("/login", async (req, res) => {
     //console.log(validpassword);
     if (!validpassword) return res.status(400).send("password is incorrect");
     const access_token = jwt.sign(
-      { Operateur: operateur.name },
+      { Operateur:{id:operateur.id,name:operateur.name}
+    },
       process.env.ACCESS_TOKEN
     );
     console.log(access_token);
@@ -57,6 +58,7 @@ router.delete("/delete/:id", async (req, res) => {
     res.json({ message: err });
   }
 });
+
 
 //add operateur
 
@@ -118,7 +120,8 @@ router.delete("/delete/:id", async (req, res) => {
     res.json({ message: err });
   }
 });
-router.get("/get", async (req, res) => {
+//get profile
+router.get("/gets", async (req, res) => {
   try {
     const operateur = await Operateur.find();
     res.send(operateur);
@@ -126,6 +129,14 @@ router.get("/get", async (req, res) => {
     res.json({ message: err });
   }
 });
+
+
+
+
+
+
+
+ 
 
 // update
 router.patch("/update/:id", async (req, res) => {
@@ -186,5 +197,75 @@ router.post("/forget", async (req, res) => {
     res.send({ message: err });
   }
 });
+
+//accepter client
+router.patch("/update/:id", async (req, res) => {
+  try {
+    
+    const operateur = await client.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          name:req.body.name,
+          email:req.body.email,
+          password:hashedpassword,
+          tel:req.body.tel
+          
+        },
+      },{new:true}
+    );
+     res.send(operateur);
+    console.log(operateur)
+  }catch (err){
+    res.json({message: err});
+  }
+});
+
+
+router.get("/get",async(req,res)=>{
+  const  token = req.header("Authorization")
+  const token_decode = await jwt.decode(token)
+  console.log(token_decode)
+  try{
+   
+      const getajoute=await Operateur.findById({_id:token_decode.Operateur.id});
+      res.send(getajoute);
+
+  }catch(err){res.json({message:err})}
+
+})
+
+//update operateur
+router.patch("/updat", async (req, res) => {
+ const  token = req.header("Authorization")
+  const token_decode = await jwt.decode(token)
+  console.log(token_decode)
+
+
+  try {
+    
+    const oerateur = await Operateur.findOneAndUpdate(
+      { _id: token_decode.Operateur.id },
+      {
+        $set: {
+          name:req.body.name,
+          email:req.body.email,
+          tel:req.body.tel
+          
+        },
+      },{new:true}
+    );
+     res.send(oerateur);
+    console.log(oerateur)
+  }catch (err){
+    res.json({message: err});
+  }
+});
+
+
+
+
+
+
 
 module.exports = router;

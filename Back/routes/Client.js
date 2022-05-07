@@ -80,17 +80,19 @@ router.post("/signin", async (req, res) => {
 
 //test code OTP
 
-router.put("/verif/:token/:clientId", async (req, res) => {
+router.put("/verif", async (req, res) => {
+  const  token = req.header("Authorization")
+    const token_decode = await jwt.decode(token)
+    console.log(token_decode)
+
   try {
-    const verified = jwt.verify(req.params.token, process.env.ACCESS_TOKEN);
-    if (!verified) return res.send("Acces denied");
     const otp = await Otp.findOne({ OTP: req.body.otp });
     console.log(otp);
     console.log(otp.OTP);
     if (otp.OTP !== req.body.otp) return res.send("wrong OTP")
     console.log("testetst")
     const verifiedclient = await Ajouter.findByIdAndUpdate(
-      { _id: req.params.clientId },
+      { _id: token_decode.Client },
       {
         $set: {
           valide: true,
@@ -141,18 +143,18 @@ router.post("/login", async (req, res) => {
   if (error) return res.status(403).send(error.details[0].message);
 
   try {
-    const Client = await Ajouter.findOne({ email: req.body.email });
-    if (!Client) return res.status(403).send("Account doesn't exists");
-    console.log(Client);
+    const client = await Ajouter.findOne({ email: req.body.email });
+    if (!client) return res.status(403).send("Account doesn't exists");
+    console.log(client);
 
     const validpassword = await bcrypt.compare(
       req.body.password,
-      Client.password
+      client.password
     );
-
+console.log("hiii")
     if (!validpassword) return res.status(400).send("password is incorrect");
     const access_token = jwt.sign(
-      { Client: Client._id },
+      { Client:{id:client_id,operateur:client.Operateur} },
       process.env.ACCESS_TOKEN
     );
     console.log(access_token);
@@ -171,7 +173,7 @@ router.get("/list", verify, async (req, res) => {
   console.log(operateur);
 
   try {
-    const Client = await Ajouter.find({ operateur: operateur.Operateur, status:"accepted" });
+    const Client = await Ajouter.find({ operateur: operateur.Operateur.name, status:"accepted" });
     res.send(Client);
   } catch (err) {
     res.json({ message: err });
@@ -182,18 +184,19 @@ router.get("/list", verify, async (req, res) => {
 router.get("/listatt", verify, async (req, res) => {
   const token = req.header("Authorization");
   console.log(typeof token);
-  const operateur = parseJwt(token);
+  const operateur = jwt.decode(token);
   console.log(typeof operateur);
   console.log(operateur);
 
   try {
-    const Client = await Ajouter.find({ operateur: operateur.Operateur, status:"en attente" });
+    const Client = await Ajouter.find({ operateur: operateur.Operateur.name, status:"en attente" });
     res.send(Client);
   } catch (err) {
     res.json({ message: err });
   }
 });
 //accepter client
+
 router.patch("/update/:id", async (req, res) => {
   try {
     
@@ -213,39 +216,63 @@ router.patch("/update/:id", async (req, res) => {
   }
 });
 
+// test oublier mot de passe 
+
+router.post("/test", async (req, res) => {
+  const ajouter = await new Otp({
+    OTP:req.body.otp})
+
+  try {
+    const savedajouter = await ajouter.save();
+    console.log(savedajouter.OTP)
+
+      const otp = await Otp.findOne({ Otp });
+    console.log(otp);
+    
+    if (otp.OTP !== req.body.otp) return res.send("wrong OTP")
+    console.log("testetst")
+    
+    console.log(verifiedclient);
+
+    
+
+    res.send("basas");
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
 
 
+router.get("/get/:id",async(req,res)=>{
+        try{
+            const getajoute=await aler.findById({_id:req.params.id});
+            res.send(getajoute);
+
+        }catch(err){res.json({message:err})}
+
+    })
 
 /// ou blie pass
 router.post("/forget", async (req, res) => {
   ///validate all the incoming data in the body
   //const { error } = InscrireSchema.validate(req.body);
   //if (error) return res.send(error.details[0].message);
-  console.log(code);
   const emailcheck = await Operateur.findOne({
     email: req.body.email,
   });
-  //inscrit client
 
+const otp = await Otp.find();
+
+if (!emailcheck) return res.status(400).send("Email is not  exists"); 
   try {
     const savedclient = await emailcheck.save();
+    const otp = await Otp.find();
+    
+    console.log(otp);
+    mail_liste(savedclient.email,savedclient.name,otp[0].OTP)
 
-    console.log(savedclient.email);
-    const message = {
-      to: savedclient.email,
-      from: "tnu.devops@gmail.com",
-      subject: "Emai confirmation",
-      templateId: "d-901023562e654d85a7857102fd6ebe3e",
-      dynamic_template_data: {
-        name: savedclient.name,
-        code: code,
-      },
-    };
-    console.log(savedclient.name);
-
-    sgMail.send(message).then(() => {
-      console.log("Email sent");
-    });
+    const deletedcode = await Otp.findOneAndDelete({ OTP: otp.OTP[0] });
+    console.log(deletedcode);
     res.send(savedclient);
   } catch (err) {
     res.send({ message: err });

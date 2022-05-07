@@ -53,10 +53,9 @@ function Validation() {
     console.log("submitted");
   
    
-    axios.put(`http://localhost:5000/Client/verif/${token}/${id}`, otp)
-      .then((res) => {
+    axios.put(`http://localhost:5000/Client/verif`, otp,{ headers: {"Authorization" : `${token}`} } )  .then((res) => {
         
-          Navigate("/Home");
+          Navigate("/Login");
         
 
         //  window.location.href = "/overview";

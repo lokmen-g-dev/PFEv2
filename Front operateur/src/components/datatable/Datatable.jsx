@@ -10,8 +10,11 @@ import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import { Button } from "@material-ui/core";
 
 import { useNavigate } from 'react-router-dom';
+
+
+
 const handleDelete=(id)=>{
-  axios.delete(`http://localhost:5000/ajouter/user/${id}`, ).then((res) => {
+  axios.delete(`http://localhost:5000/Client/delete/${id}`, ).then((res) => {
     console.log(res.data)
     window.location.reload(true);
   })
@@ -19,6 +22,9 @@ const handleDelete=(id)=>{
     console.log(err);
   });
 }
+
+
+
 const columns = [
   
   {

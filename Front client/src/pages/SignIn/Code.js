@@ -48,7 +48,7 @@ function Code() {
 
     console.log("submitted");
     axios
-      .post("http://localhost:5000/Client/verif", admin)
+      .post("http://localhost:5000/Client/test", admin)
       .then((res) => {
         localStorage.setItem("access_token", res.data.access_token);
         console.log(res.data);
