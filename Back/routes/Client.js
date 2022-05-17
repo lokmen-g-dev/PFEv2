@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const sgMail = require("@sendgrid/mail");
 const mongoose = require("mongoose");
 const Ajouter = require("../models/Client");
+const test = require("../models/Test");
+const est = require("../models/est")
 const Joi = require("@hapi/joi");
 const verify = require("../routes/Verify");
 const parseJwt = require("../routes/Decode");
@@ -278,5 +280,62 @@ if (!emailcheck) return res.status(400).send("Email is not  exists");
     res.send({ message: err });
   }
 });
+
+router.get("/get/:id",async(req,res)=>{
+  try{
+      const getajoute=await aler.findById({_id:req.params.id});
+      res.send(getajoute);
+
+  }catch(err){res.json({message:err})}
+
+})
+
+// gett test 
+router.get("/test",async(req,res)=>{
+  try{
+      const alert= await test.find();
+      res.send(alert);
+  }catch(err){res.json({message:err})}
+  })
+
+  router.get("/test",async(req,res)=>{
+    try{
+        const alert= await test.find();
+        console.log(alert)
+        res.send(alert);
+    }catch(err){res.json({message:err})}
+    })
+
+
+    /// fortigate
+    router.post("/Adds", async(req,res)=>{
+
+      console.log("salut")
+  
+          const Est = await new est({
+             ip:req.body.ip,
+          
+      })
+     
+      try{
+          
+          const savedajouter = await Est.save();
+      //Add operateur
+              res.send( savedajouter);
+      }catch(err){
+          res.send({message:err})
+      }
+   
+          
+      });
+
+
+  ///get  fortigate
+  router.get("/fortigate",async(req,res)=>{
+    try{
+        const alert= await est.find();
+        res.send(alert);
+    }catch(err){res.json({message:err})}
+    })
 
 module.exports = router;

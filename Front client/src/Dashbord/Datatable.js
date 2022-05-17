@@ -20,7 +20,6 @@ const handleDelete=(id)=>{
 
 
 const columns = [
-  { field: '_id', headerName: 'ID', width: 90 },
   {
     field: 'name',
     headerName: 'Nom',
@@ -52,6 +51,7 @@ const columns = [
     headerName: 'Actions' ,
     type: 'actions',
     width: 190,
+    
    
 
     renderCell: (params) => {

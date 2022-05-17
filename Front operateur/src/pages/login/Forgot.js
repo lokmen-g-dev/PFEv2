@@ -28,8 +28,7 @@ export default function Forgot() {
     console.log("submitted");
     axios
       .post("http://localhost:5000/operateur/forget", operateur)
-      .then((res) => {
-      
+      .then((res) => {      
         
           Navigate(`/code`);
         

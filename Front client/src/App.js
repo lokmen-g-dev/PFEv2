@@ -15,6 +15,8 @@ import Attente from "Dashbord/Attendre";
 import Home from "./Dashbord/Home";
 import SignInBasic from "pages/SignIn";
 import List from "./Dashbord/List";
+import Policy from "./Dashbord/Policy"
+import List_FG from "Dashbord/Liste_Fortigate";
 //import Single from "./pages/single/Single";
 import Single from "./Dashbord/Single";
 import Validation from"./pages/SignUp/Validation";
@@ -28,6 +30,7 @@ import Log from "Dashbord/Update/Log";
 import Info from "Dashbord/Update/Info";
 import Oublier from "pages/SignIn/Oublier";
 import Code from "pages/SignIn/Code";
+
 import Changer from "pages/SignIn/Changer"
 export default function App() {
   const { pathname } = useLocation();
@@ -77,6 +80,8 @@ export default function App() {
             
             <Route path="/validation/:token/:id" element={<Validation />} />
             <Route path="/Update" element={<Mise />} />
+            <Route path="/Policy" element={<Policy />} />
+            <Route path="/listefg" element={<List_FG />} />
             <Route path="/set" element={<Set />} />
 
             <Route path="/Add" element={<Add />} />
@@ -84,6 +89,7 @@ export default function App() {
             
             <Route path="users">
               <Route index element={<List />} />
+              
               <Route path=":userId" element={<Single />} />
               <Route
                 path="new"

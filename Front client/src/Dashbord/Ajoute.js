@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { makeStyles } from "@material-ui/core/styles";
-
+import "./Fortigate.css"
 
 
 import TextField from '@mui/material/TextField';
@@ -12,11 +12,11 @@ import axios from "axios";
 
 const style = {
   position: 'absolute',
-  top: '50%',
+  top: '45%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 600,
-  height:400,
+  width: 1300,
+  height:800 ,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -68,77 +68,36 @@ export default function AddButto() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  function Changer() {
+    document.getElementById('demo1')
+    console.log("11")
+  }
   return (
     <div>
-      <Button  variant="contained" onClick={handleOpen}>ajouter </Button>
+      <Button  variant="contained" onClick={handleOpen}>Configurer </Button>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box style={{borderRadius:'10px',borderColor:'white', height:'500px'}} sx={style}>
+        <Box style={{borderRadius:'10px',Color:'read', height:'500px'}} sx={style}>
         <div className={classes.paper}>
       
-        <Typography  component="h1" variant="h5">
-         Ajouter fortiGate
-        </Typography>
-        <form className={classes.form} onChange={handleChange}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="Name"
-            name="name"
-            
-            autoFocus
-          />
-        <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="IP address"
-            name="ip"
-            
-            autoFocus
-          />
-           <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="nom d'utilisateur "
-            name="user"
-            
-            autoFocus
-          />
-           <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="Mot de passe"
-            type="password"
-            name="password"
-            
-            autoFocus
-          />  
-                    
-           
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleSubmit}
-          >
-          Ajouter
-          </Button>
-        </form>
+      <div id="id">
+   
+        <ol >
+        <li onClick={Changer} > Static</li>
+        <li>Policy</li>
+        <li>SDWAN</li>
+<center>
+</center>
+
+
+        </ol>
+<h1 id="demo1"  style={{ width: "100%", height: "100%", color: "#76abec" }}>hhhhhhhhhhhhh</h1>
+
+      </div>
       </div>
         </Box>
       </Modal>

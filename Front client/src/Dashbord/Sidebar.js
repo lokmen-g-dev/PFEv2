@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import PolicyIcon from '@mui/icons-material/Policy';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import LocalPostOfficeIcon from '@mui/icons-material/LocalPostOffice';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 
 //import { DarkModeContext } from "../../context/darkModeContext";
@@ -32,6 +33,13 @@ function  Sidebar(){
           </li>
           <p className="title">LISTS</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
+            <li>
+              <ManageAccountsIcon className="icon" />
+              <span>FortiManager</span>
+            </li>
+          </Link>
+
+          <Link to="/listefg" style={{ textDecoration: "none" }}>
             <li>
               <BorderOuterIcon className="icon" />
               <span>FortiGate</span>
@@ -57,7 +65,7 @@ function  Sidebar(){
           <p className="title">Configuration</p>
          
           
-          <Link to="/Update" style={{ textDecoration: "none" }}> 
+          <Link to="/Policy" style={{ textDecoration: "none" }}> 
           <li>
             <PolicyIcon className="icon" />
             <span>Policy</span>

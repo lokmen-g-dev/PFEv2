@@ -1,4 +1,8 @@
 import "./chart.scss";
+import axios from "axios";
+import { useState, useEffect } from "react";
+
+
 import {
   AreaChart,
   Area,
@@ -8,17 +12,38 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  { name: "January", Total: 190 },
-  { name: "February", Total: 2100 },
-  { name: "March", Total: 800 },
-  { name: "April", Total: 1600 },
-  { name: "May", Total: 900 },
-  { name: "June", Total: 1700 },
-];
+
+
+
 
 const Chart = ({ aspect, title }) => {
+  const [datalen  ,setDataLen]=useState()
+  const y = datalen
+
+
+  useEffect(async () => {
+  const token=  localStorage.getItem("access_token")
+  console.log(token)
+  axios.get("http://localhost:5000/Client/list", { headers: {"Authorization" : `${token}`} } ).then((res) => {
+ 
+   setDataLen(res.data.length)
+    console.log(res.data.length)
+   
+  })
+  console.log(datalen)
+
+  }, [])
+  const data = [
+    { name: "January", Total: 10 *y},
+    { name: "February", Total: 10 * y },
+    { name: "March", Total: 9 * y },
+    { name: "April", Total: 1600 },
+    { name: "May", Total: 900 },
+    { name: "June", Total: 1700 },
+  ];    
   return (
+
+
     <div className="chart">
       <div className="title">{title}</div>
       <ResponsiveContainer width="100%" aspect={aspect}>
@@ -26,11 +51,11 @@ const Chart = ({ aspect, title }) => {
           width={730}
           height={250}
           data={data}
-          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+          margin={{ top: 3, right: 30, left: 0, bottom: 0 }}
         >
           <defs>
-            <linearGradient id="total" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+            <linearGradient id="total" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="60%" stopColor="#8884d8" stopOpacity={2} />
               <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
             </linearGradient>
           </defs>
@@ -41,7 +66,7 @@ const Chart = ({ aspect, title }) => {
             type="monotone"
             dataKey="Total"
             stroke="#8884d8"
-            fillOpacity={1}
+            fillOpacity={12}
             fill="url(#total)"
           />
         </AreaChart>

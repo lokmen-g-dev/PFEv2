@@ -14,7 +14,6 @@ const List = () => {
       <Sidebar/>
       <div className="listContainer">
         <NavBar/>
-        <div style={{marginLeft:1200,marginTop:10, marginBottom:7, }} ><AddButto/></div>
 
         <Datatable/>
       </div>
