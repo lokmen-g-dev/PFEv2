@@ -22,6 +22,10 @@ app = Flask (__name__)
 
 
 #Members APT Route
+
+
+
+# recuperation adresse ip
 for req in coll.find({},{ 'name': 0 , 'user':0,  '_id':0, 'password':0 ,'__v': 0 }):
 
 
@@ -81,12 +85,12 @@ for x in data_dict['result']:
      B = x['data'][y]['name']
      C = x['data'][y]['mgmt_if']
      D = x['data'][y]['tunnel_ip']
-     if y==0:
-        E ="h7srbHH13Hd0hgq3s4mmxchm3bkh8H"
-     elif y==1:
-        E="18y96sh3c58m0894dzr75bNszxfxG1"
+     if(x==0):
+         E ="h7srbHH13Hd0hgq3s4mmxchm3bkh8H"
+     elif(x==1):
+         E="5mqn8g9tbnd58hGqf30Qcm4H6jkp0H"
      else:
-        E="jQgh8mHq9r4Qpd949961r6bpjkH3mj"
+         E="jQgh8mHq9r4Qpd949961r6bpjkH3mj"
      tab.append([A, B , C , E])
 
 print (tab)
@@ -112,97 +116,26 @@ for i in range(len(tab)):
     chema= "/logincheck"
   
 
-  
+    time.sleep(5)
     #les policy de fortigate
     chema_policy="/api/v2/cmdb/firewall/policy?access_token="
     url = (url1+ip01+chema_policy+tab[i][3])
-    print(url)
-    
     payload = ""
     headers = {}
 
-    response = requests.request("GET", url, headers=headers, data=payload , verify=False)
+    response = requests.request("GET", url, headers=headers, data=payload)
 
     print(response.text)
 
+
+    print(response.text)
     #output= response
-    #Get Policy
 
     json_object = json.loads(response.text)
     print(type(json_object))
-    x="Policy"f"{tab[i][1]}"".json"
-    with open(x, "w") as myfile:
+    with open("Policy.json", "w") as myfile:
         myfile.write(json.dumps(json_object, indent=4))
         print("export successful")
-
-    #Get Interface 
-    chema_policy="/api/v2/cmdb/system/interface?access_token="
-    url = (url1+ip01+chema_policy+tab[i][3])
-   
-    payload = ""
-    headers = {}
-
-    response = requests.request("GET", url, headers=headers, data=payload , verify=False)
-
-    print(response.text)
-
-    json_object = json.loads(response.text)
-    print(type(json_object))
-    x="Interface"f"{tab[i][1]}"".json"
-    with open(x, "w") as myfile:
-        myfile.write(json.dumps(json_object, indent=4))
-        print("export successful")
-    
-    ##GET SDWAN
-    chema_policy="/api/v2/cmdb/system/sdwan/zone?access_token="
-    url = (url1+ip01+chema_policy+tab[i][3])
-   
-    payload = ""
-    headers = {}
-
-    response = requests.request("GET", url, headers=headers, data=payload , verify=False)
-
-    print(response.text)
-    json_object = json.loads(response.text)
-    print(type(json_object))
-    x="SD-WAN"f"{tab[i][1]}"".json"
-    with open(x, "w") as myfile:
-        myfile.write(json.dumps(json_object, indent=4))
-        print("export successful")
-     
-     ##GET Static
-    chema_policy="/api/v2/cmdb/router/static/?access_token="
-    url = (url1+ip01+chema_policy+tab[i][3])
-   
-    payload = ""
-    headers = {}
-
-    response = requests.request("GET", url, headers=headers, data=payload , verify=False)
-
-    print(response.text)
-    json_object = json.loads(response.text)
-    print(type(json_object))
-    x="Route Static"f"{tab[i][1]}"".json"
-    with open(x, "w") as myfile:
-        myfile.write(json.dumps(json_object, indent=4))
-        print("export successful")
-
-
-
-# recuperation adresse ip
-
-
-with open('InterfaceFGT-AG-01.json', 'r') as myfile:
-    data_dict = json.load(myfile)
-    print(data_dict['results'])
-print(type(data_dict['results']))
-
-for x in data_dict['results']:
-     A1 = x['name']
-     B2 = x['ip']
-     C2 = x['allowaccess']
-     print(A1 ,B2 , C2)
-
 
 
 

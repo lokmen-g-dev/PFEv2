@@ -22,19 +22,19 @@ const handleDelete=(id)=>{
 const columns = [
   {
     field: 'name',
-    headerName: 'Nom',
+    headerName: 'Port',
     width: 190,
    
   },
   {
     field: 'ip',
-    headerName: 'IP address',
+    headerName: 'IP address & Masque de réseau',
     width: 190,
     
   },
   {
     field: 'mgmt_if',
-    headerName: 'Nom utilisateur ',
+    headerName: 'permettre l accès ',
     width: 190,
 
   },
@@ -79,7 +79,7 @@ const columns = [
 
 
 
-export default function DataPolicy() {
+export default function Datainterface() {
 
   const [tableData, setTableData] = useState([]);
   useEffect(async () => {

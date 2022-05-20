@@ -6,9 +6,10 @@ import Modal from '@mui/material/Modal';
 import { makeStyles } from "@material-ui/core/styles";
 import Widget from "./Widget";
 import Senn from "./conf";
-import DataGridDemo from "./Datatable";
+import Datainterface from "./DateInterface";
 
 
+import TextField from '@mui/material/TextField';
 import axios from "axios";
 
 const style = {
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Policy() {
+export default function Interface() {
     const [formData, setFormData] = useState([]);
 
     const handleChange = (e) => {
@@ -75,7 +76,7 @@ export default function Policy() {
   }
   return (
     <div>
-      <Button style={{color:"#888"}}  onClick={handleOpen}>Policy</Button>
+      <Button style={{color:"#888"}} onClick={handleOpen}>Interface </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -88,11 +89,11 @@ export default function Policy() {
 
       <div className="homeContainer">
         <div className="widgets">
-        <DataGridDemo/>
+        <Datainterface />
+
           
         </div>
         <div className="charts">
-    
         </div>
 
       </div>

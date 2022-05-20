@@ -4,7 +4,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { makeStyles } from "@material-ui/core/styles";
-import "./Fortigate.css"
+import Widget from "./Widget";
+import Senn from "./conf";
 
 
 import TextField from '@mui/material/TextField';
@@ -81,24 +82,24 @@ export default function AddButto() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box style={{borderRadius:'10px',Color:'read', height:'500px'}} sx={style}>
-        <div className={classes.paper}>
-      
-      <div id="id">
-   
-        <ol >
-        <li onClick={Changer} > Static</li>
-        <li>Policy</li>
-        <li>SDWAN</li>
-<center>
-</center>
+        <Box style={{borderRadius:'10px',borderColor:"transparent" , height:'600px', marginLeft:'1%',marginBottom:'1%', marginRight:'2%'}} sx={style}>
+        <div className="home">
+        <Senn />
 
+      <div className="homeContainer">
+        <div className="widgets">
 
-        </ol>
-<h1 id="demo1"  style={{ width: "100%", height: "100%", color: "#76abec" }}>hhhhhhhhhhhhh</h1>
+          <Widget type="user" />
+          <Widget type="Connecter" />
+          <Widget type="earning" />
+          <Widget type="earning" />
+        </div>
+        <div className="charts">
+    
+        </div>
 
       </div>
-      </div>
+    </div>
         </Box>
       </Modal>
     </div>

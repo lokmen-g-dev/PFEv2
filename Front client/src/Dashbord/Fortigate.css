@@ -5,27 +5,22 @@
 
 }
 ol {
-  margin-right: 75%;
   margin-top: 5%;
   list-style: none;
-   width: 300px;
+   width: 150px;
+
+   
     
 }
 
 ol  li {
     font-size: 1.2rem;
     background: rgb(23,23,23);
-    margin-left: 40;
-    padding-left: 30;
-
     margin-bottom: 10px;
-    padding: 20 px 30 px ;
     color: aliceblue;
     cursor: pointer;
     position: relative;
-    z-index: 5;
-
-
+    z-index: 6;
 
 }
 ol li::before {
@@ -38,6 +33,7 @@ ol li::before {
     background: orange;
     transition: all .4s;
     z-index: -1;
+    
 }
 ol li:hover::before {
     width: 100%;
@@ -60,11 +56,11 @@ ol li:hover {
 }
 
 #id{
+    margin-top: 4%;
+    margin-left:0 ;
     margin-right: 75%;
-    width: 370px;
-    height: 160px;
-   border-radius: 5px;
-    
-    
+    width: 200px;
+    height: 190px;
+    border-radius: 5px;   
     background-color:  rgb(23,23,23);
 }

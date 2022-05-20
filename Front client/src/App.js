@@ -80,7 +80,6 @@ export default function App() {
             
             <Route path="/validation/:token/:id" element={<Validation />} />
             <Route path="/Update" element={<Mise />} />
-            <Route path="/Policy" element={<Policy />} />
             <Route path="/listefg" element={<List_FG />} />
             <Route path="/set" element={<Set />} />
 
