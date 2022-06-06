@@ -29,15 +29,10 @@ function Newsletter() {
       <Container>
         <Grid container alignItems="center">
           <Grid item sx={12} md={6} s={{ ml: { xs: 0, lg: 3 }, mb: { xs: 12, md: 0 } }}>
-            <MKTypography variant="h6" color="text" mb={2}>
-              PRENDRE VOTRE
-            </MKTypography>
-            <MKTypography variant="h3">rendez vous maintenant .</MKTypography>
+            
           </Grid>
           <Grid container item xs={12} mt={5} mb={2}>
-            <MKButton type="submit" variant="gradient" color="info">
-              Rendez-vous
-            </MKButton>
+          
           </Grid>
         </Grid>
       </Container>

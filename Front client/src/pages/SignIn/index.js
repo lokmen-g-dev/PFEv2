@@ -34,7 +34,7 @@ import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import routes from "routes";
 
 // Images
-import bgImage from "assets/images/tt.jpg";
+import bgImage from "assets/images/img2.webp";
 
 function SignInBasic() {
   const [admin, setadmin] = useState("");
@@ -140,7 +140,7 @@ function SignInBasic() {
                       Vous n&apos;avez pas de compte?{" "}
                       <MKTypography
                         component="a"
-                        href="/pages/authentication/signUp"
+                        href="/signUp"
                         variant="button"
                         color="info"
                         fontWeight="medium"

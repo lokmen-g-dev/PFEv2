@@ -1,4 +1,4 @@
-/**
+    /**
 =========================================================
 * Material Kit 2 React - v2.0.0
 =========================================================
@@ -37,41 +37,37 @@ Coded by www.creative-tim.com
 */
 
 // Pages
-import Acceuil from "layouts/pages/Acceuil";
-import Radiologues from "layouts/pages/Radiologues";
-import Specialite from "layouts/pages/Specialite";
-import SignIn from "layouts/pages/authentication/sign-in";
-import SignUp from "layouts/pages/authentication/SignUp";
+import Acceuil from "layouts2/pages/Acceuil";
+import Radiologues from "pages/Radiologues";
+import Specialite from "pages/Specialite";
+import SignIn from "pages/SignIn";
+import SignUp from "pages/SignUp";
 
 const routes = [
   {
-    name: "acceuil",
-    route: "pages/Acceuil",
+    name: "Acceuil",
+    route: "/Acceuil",
     component: <Acceuil />,
   },
   {
     name: "Avantage",
-    route: "/pages/Radiologues",
+    route: "/Avantages",
     component: <Radiologues />,
   },
   {
     name: "A quoi sert",
-    route: "/pages/Specialite",
+    route: "/sert",
     component: <Specialite />,
   },
   {
-    name: "S'inscrire",
-    route: "/pages/authentication/SignUp",
+    name: "Inscription",
+    route: "/SignUp",
     component: <SignUp />,
   },
   {
     name: "se connecter",
-    route: "/pages/authentication/sign-in",
+    route: "/sign-in",
     component: <SignIn />,
-  },
-  {
-    route: "/pages/authentication/SignUp",
-    component: <SignUp />,
   },
 ];
 export default routes;

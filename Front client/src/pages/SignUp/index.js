@@ -37,7 +37,7 @@ import { useEffect } from "react";
 import React, { useState } from "react";
 import axios from "axios";
 // Images
-import bgImage from "assets/images/tt.jpg";
+import bgImage from "assets/images/img2.webp";
 import { useNavigate } from "react-router-dom";
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
@@ -135,7 +135,6 @@ function SignUpBasic() {
         }}
       />
       <MKBox
-        left="-20%"
         width="100%"
         height="100vh"
         position="relative"

@@ -6,6 +6,7 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 //import { DarkModeContext } from "./context/darkModeContext";
+import dashboard from "../assets/images/dashboard.png";
 
 
 function NavBar() {
@@ -13,33 +14,14 @@ function NavBar() {
     <div >
       <div className="navbar">
         <div className="wrapper">
-
-        <div className="search">
-          <input type="text" placeholder="Search..." />
-          <SearchOutlinedIcon />
-        </div>
+        <div className="wrapper">
          <div className="items">
-
- 
           <div className="item">
-            <NotificationsNoneOutlinedIcon className="icon" />
-            <div className="counter">1</div>
-          </div>
-          <div className="item">
-            <ChatBubbleOutlineOutlinedIcon className="icon" />
-            <div className="counter">0</div>
-          </div>
-          <div className="item">
-            <ListOutlinedIcon className="icon" />
-          </div>
-          <div className="item">
-            <img
-              src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-              alt=""
-              className="avatar"
-            />
+            <img src={dashboard} width= "10%" height= "9%" style={{marginRight:"10px"}}/>   Dashboard
           </div>
          </div>
+        </div>
+        
         </div>
       </div>
     </div> 

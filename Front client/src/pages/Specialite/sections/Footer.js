@@ -37,7 +37,7 @@ function Footer() {
             mb={{ xs: 3, lg: 0 }}
           >
             <MKTypography variant="h6" textTransform="uppercase" mb={{ xs: 2, lg: 3 }}>
-              SD-WAN
+              Platforme
             </MKTypography>
             <Stack
               component="ul"
@@ -55,7 +55,7 @@ function Footer() {
                   fontWeight="regular"
                   opacity={0.8}
                   component={Link}
-                  href="pages/presentation"
+                  href="/Acceuil"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -68,37 +68,25 @@ function Footer() {
                   fontWeight="regular"
                   opacity={0.8}
                   component={Link}
-                  href="/pages/about-us"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  quoi de plus
-                </MKTypography>
-              </MKBox>
-              <MKBox component="li">
-                <MKTypography
-                  variant="button"
-                  fontWeight="regular"
-                  opacity={0.8}
-                  component={Link}
-                  href="/pages/author"
+                  href="/Avantages"
                   target="_blank"
                   rel="noreferrer"
                 >
                   Avantages
                 </MKTypography>
               </MKBox>
+              
               <MKBox component="li">
                 <MKTypography
                   variant="button"
                   fontWeight="regular"
                   opacity={0.8}
                   component={Link}
-                  href="/pages/authentication/signUp"
+                  href="/sert"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  S&apos;inscrire
+                  A quoi sert
                 </MKTypography>
               </MKBox>
               <MKBox component="li">
@@ -107,7 +95,20 @@ function Footer() {
                   fontWeight="regular"
                   opacity={0.8}
                   component={Link}
-                  href="/pages/authentication/sign-in"
+                  href="/SignUp"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Inscription
+                </MKTypography>
+              </MKBox>
+              <MKBox component="li">
+                <MKTypography
+                  variant="button"
+                  fontWeight="regular"
+                  opacity={0.8}
+                  component={Link}
+                  href="/sign-in"
                   target="_blank"
                   rel="noreferrer"
                 >

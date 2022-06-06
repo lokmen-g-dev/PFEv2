@@ -21,22 +21,20 @@ import Card from "@mui/material/Card";
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
-import MKButton from "components/MKButton";
 
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import DefaultFooter from "examples/Footers/DefaultFooter";
 
 // About Us page sections
 import Information from "pages/Radiologues/sections/Information";
-import Team from "pages/Radiologues/sections/Team";
 import Newsletter from "pages/Radiologues/sections/Newsletter";
+import Footer from "pages/Radiologues/sections/Footer";
 
 // Routes
 import routes from "routes";
 
 // Images
-import bgImage from "assets/images/radi.jpg";
+import bgImage from "assets/images/img1.jpg";
 
 function Radiologues() {
   return (
@@ -46,10 +44,10 @@ function Radiologues() {
         minHeight="75vh"
         width="100%"
         sx={{
-          backgroundImage: ({ funtions: { linearGradient, rgba }, palette: { gradients } }) =>
+          backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
             `${linearGradient(
-              rgba(gradients.dark.main, 0.1),
-              rgba(gradients.dark.state, 0.1)
+              rgba(gradients.dark.main, 0.6),
+              rgba(gradients.dark.state, 0.6)
             )}, url(${bgImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -77,33 +75,8 @@ function Radiologues() {
                 },
               })}
             >
-              Work with an amazing design
+             SD-WAN
             </MKTypography>
-            <MKTypography variant="body1" color="white" opacity={0.8} mt={1} mb={3}>
-            Le SD WAN permet de centraliser le déploiement de la solution, de ses applications,
-             des fonctions de sécurité et le routage des flux à partir d’une seule console d’administration.
-              Celle-ci offre la possibilité de surveiller en temps réel l’état du réseau. 
-            </MKTypography>
-            <MKButton color="default" sx={{ color: ({ palette: { dark } }) => dark.main }}>
-              create account
-            </MKButton>
-            <MKTypography variant="h6" color="white" mt={8} mb={1}>
-              Find us on
-            </MKTypography>
-            <MKBox display="flex" justifyContent="center" alignItems="center">
-              <MKTypography component="a" variant="body1" color="white" href="#" mr={3}>
-                <i className="fab fa-facebook" />
-              </MKTypography>
-              <MKTypography component="a" variant="body1" color="white" href="#" mr={3}>
-                <i className="fab fa-instagram" />
-              </MKTypography>
-              <MKTypography component="a" variant="body1" color="white" href="#" mr={3}>
-                <i className="fab fa-twitter" />
-              </MKTypography>
-              <MKTypography component="a" variant="body1" color="white" href="#">
-                <i className="fab fa-google-plus" />
-              </MKTypography>
-            </MKBox>
           </Grid>
         </Container>
       </MKBox>
@@ -117,10 +90,11 @@ function Radiologues() {
         }}
       >
         <Information />
-        <Team />
         <Newsletter />
       </Card>
-      
+      <MKBox pt={6} px={1} mt={6}>
+        <Footer />
+      </MKBox>
     </>
   );
 }

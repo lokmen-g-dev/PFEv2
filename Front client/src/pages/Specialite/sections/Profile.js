@@ -19,15 +19,20 @@ import Grid from "@mui/material/Grid";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
+import MKAvatar from "components/MKAvatar";
 import MKTypography from "components/MKTypography";
 
 // Images
+import profilePicture from "assets/images/images.png";
 
 function Profile() {
   return (
     <MKBox component="section" py={{ xs: 6, sm: 12 }}>
       <Container>
         <Grid container item xs={12} justifyContent="center" mx="auto">
+          <MKBox mt={{ xs: -16, md: -20 }} textAlign="center">
+            <MKAvatar src={profilePicture} alt="logo" size="xxl" shadow="xl" />
+          </MKBox>
           <Grid container justifyContent="center" py={6}>
             <Grid item xs={12} md={9} mx={{ xs: "auto", sm: 6, md: 1 }}>
               <MKTypography variant="body1" fontWeight="light" color="text">

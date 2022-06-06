@@ -90,13 +90,13 @@ export default function DataGridDemo() {
  
 
   return (
-    <div style={{ marginTop:'', height: 400, width: '100%' }}>
+    <div style={{ marginTop:'5%', height: 400, width: '100%' }}>
       <DataGrid
         rows={tableData}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        checkboxSelection
+        
         disableSelectionOnClick
       />
     </div>

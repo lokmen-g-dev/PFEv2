@@ -28,8 +28,8 @@ export default function AppHeader() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="static" color="success" >
+        <Toolbar >
           <IconButton
             size="large"
             edge="start"

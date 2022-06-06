@@ -37,7 +37,7 @@ function Footer() {
             mb={{ xs: 3, lg: 0 }}
           >
             <MKTypography variant="h6" textTransform="uppercase" mb={{ xs: 2, lg: 3 }}>
-              Medix
+              Platforme
             </MKTypography>
             <Stack
               component="ul"
@@ -55,7 +55,7 @@ function Footer() {
                   fontWeight="regular"
                   opacity={0.8}
                   component={Link}
-                  href="pages/presentation"
+                  href="/Acceuil"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -68,11 +68,25 @@ function Footer() {
                   fontWeight="regular"
                   opacity={0.8}
                   component={Link}
-                  href="/pages/about-us"
+                  href="/Avantages"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Radiologues
+                  Avantages
+                </MKTypography>
+              </MKBox>
+              
+              <MKBox component="li">
+                <MKTypography
+                  variant="button"
+                  fontWeight="regular"
+                  opacity={0.8}
+                  component={Link}
+                  href="/sert"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  A quoi sert
                 </MKTypography>
               </MKBox>
               <MKBox component="li">
@@ -81,11 +95,11 @@ function Footer() {
                   fontWeight="regular"
                   opacity={0.8}
                   component={Link}
-                  href="/pages/author"
+                  href="/SignUp"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Spécialités
+                  Inscription
                 </MKTypography>
               </MKBox>
               <MKBox component="li">
@@ -94,20 +108,7 @@ function Footer() {
                   fontWeight="regular"
                   opacity={0.8}
                   component={Link}
-                  href="/pages/contact-us"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Rendez vous
-                </MKTypography>
-              </MKBox>
-              <MKBox component="li">
-                <MKTypography
-                  variant="button"
-                  fontWeight="regular"
-                  opacity={0.8}
-                  component={Link}
-                  href="/pages/authentication/sign-in"
+                  href="/sign-in"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -115,10 +116,6 @@ function Footer() {
                 </MKTypography>
               </MKBox>
             </Stack>
-            <MKTypography variant="button" opacity={0.8}>
-              Copyright © <script>document.write(new Date().getFullYear())</script>2022 Medix by
-              Zimys.
-            </MKTypography>
           </Grid>
         </Grid>
       </Container>

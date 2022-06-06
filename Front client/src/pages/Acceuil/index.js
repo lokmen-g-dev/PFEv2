@@ -24,32 +24,33 @@ import MKTypography from "components/MKTypography";
 
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import FilledInfoCard from "examples/Cards/InfoCards/FilledInfoCard";
 
 // Presentation page sections
 import Information from "pages/Acceuil/sections/Information";
-// Presentation page components
+import FilledInfoCard from "examples/Cards/InfoCards/FilledInfoCard";
 import BuiltByDevelopers from "pages/Acceuil/components/BuiltByDevelopers";
+import Footer from "pages/Acceuil/sections/Footer";
+
 
 // Routes
 import routes from "routes";
 
 // Images
 import bgImage from "assets/images/tt.jpg";
-import XImage from "assets/images/xray.jpg";
+import XImage from "assets/images/image.jpg";
 
 function Acceuil() {
   return (
     <>
-      <DefaultNavbar routes={routes} sticky />
+      <DefaultNavbar routes={routes} sticky transparent light />
       <MKBox
         minHeight="75vh"
         width="100%"
         sx={{
           backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
             `${linearGradient(
-              rgba(gradients.dark.main, 0.1),
-              rgba(gradients.dark.state, 0.1)
+              rgba(gradients.dark.main, 0.5),
+              rgba(gradients.dark.state, 0.5)
             )}, url(${bgImage})`,
           backgroundSize: "cover",
           backgroundPosition: "top",
@@ -70,7 +71,7 @@ function Acceuil() {
                 },
               })}
             >
-              SD-WAN{" "}
+                SD-WAN{" "}
             </MKTypography>
             <MKTypography
               variant="h5"
@@ -79,7 +80,7 @@ function Acceuil() {
               px={{ xs: 6, lg: 12 }}
               mt={1}
             >
-              BIENVENUE A NOTRE PLATFORME .
+              BIENVENUE A NOTRE PLATFORME SD-WAN
             </MKTypography>
           </Grid>
         </Container>
@@ -110,10 +111,11 @@ function Acceuil() {
           backgroundPosition: "top",
           display: "grid",
           placeItems: "center",
+          opacity: 0.8,
         }}
       >
         <MKTypography variant="h2" color="white">
-          ROFITEZ DE DE LA SOULUTION SD-WAN
+        PROFITEZ DE DE LA SOLUTION SD-WAN
         </MKTypography>
       </MKBox>
       <Card>
@@ -128,11 +130,11 @@ function Acceuil() {
                 color="info"
                 icon="flag"
                 title="FortiManager"
-                description="Acceder a la platforme fortimanager pour voire plus "
+                description="Accéder à la platforme fortimanager"
                 action={{
                   type: "external",
                   route: "https://www.fortinet.com/products/management/fortimanager",
-                  label: "Let's start",
+                  label:"plus",
                 }}
               />
             </Grid>
@@ -141,11 +143,11 @@ function Acceuil() {
                 color="info"
                 icon="precision_manufacturing"
                 title="FortiGate"
-                description="Acceder a la platforme fortiGate pour voire plus"
+                description="Accéder à la platforme fortiGate"
                 action={{
                   type: "external",
                   route: "https://www.fortinet.com/fr/products/next-generation-firewall",
-                  label: "Read more",
+                  label: "plus",
                 }}
               />
             </Grid>
@@ -158,13 +160,16 @@ function Acceuil() {
                 action={{
                   type: "external",
                   route: "https://www.fortinet.com/fr/products/sd-wan",
-                  label: "Read more",
+                  label: "plus",
                 }}
               />
             </Grid>
           </Grid>
         </Container>
       </Card>
+      <MKBox pt={6} px={1} mt={6}>
+        <Footer />
+      </MKBox>
     </>
   );
 }

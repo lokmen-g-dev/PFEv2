@@ -3,10 +3,14 @@ import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Container from "@material-ui/core/Container";
 import axios from "axios";
+import Card from "@mui/material/Card";
+import Avatar from "@mui/material/Avatar";
 import './login.css'
 import { useNavigate } from "react-router-dom";
+import { style } from "@mui/system";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -26,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
+
+
 
 export default function SignIn() {
   const [admin, setadmin] = useState("");
@@ -61,11 +67,26 @@ const [error,seterror]= useState("")
   const classes = useStyles();
 
   return (
-
-    <Container style={{backgroundColor:"transparent", borderRadius:'10px',marginTop:'100px',padding:"0px 20px 20px 20px"}} component="main" maxWidth="xs">
+<div id="body">
+    <Container style={{backgroundColor:"transparent" , paddingTop:"15%", paddingBottom :"8%",marginLeft:"10%" }} component="main" maxWidth="xs">
       <CssBaseline />
-      <div id="center">
+      <Card  
+       style={{
+        marginLeft: "20px",
+        marginRight: "20px",
+      }}
+            >
+      <div id="center"  style={{
+                marginLeft: "20px",
+                marginRight: "20px",
+                marginTop: "5px",
+                marginBottom: "10px",
+              }}>
+      
         <div className={classes.paper} >
+        <Avatar sx={{ m: 1, bgcolor: "info.main" }}>
+            <LockOutlinedIcon />
+          </Avatar> Connexion
           <div id="padd">
             <form className={classes.form}  onChange={handleChange}>
               
@@ -96,19 +117,20 @@ const [error,seterror]= useState("")
            <Button
             type="submit"
             fullWidth
-            variant="contained"
+            variant="outlined"
             color="primary"
             className={classes.submit}
             onClick={handleSubmit}
            >
-            S'identifier
+            Se connecter
            </Button>
            </form>
         
            </div>
         </div>  
       </div> 
-      
+      </Card>
     </Container>
+    </div>
   );
 }

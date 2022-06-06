@@ -28,7 +28,7 @@ function  Sidebar(){
           <p className="title">MAIN</p>
           <li>
             <DashboardIcon className="icon" />
-            <Link to="/home" style={{ textDecoration: "nano" }}>
+            <Link to="/Home/:id" style={{ textDecoration: "nano" }}>
             <span>Dashboard</span>
             </Link>
           </li>

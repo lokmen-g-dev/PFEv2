@@ -25,9 +25,9 @@ import MKTypography from "components/MKTypography";
 import TransparentBlogCard from "examples/Cards/BlogCards/TransparentBlogCard";
 
 // Images
-import post1 from "assets/images/examples/scanner.png";
-import post2 from "assets/images/examples/echoo.jpg";
-import post3 from "assets/images/examples/irmm.jpg";
+import post1 from "assets/images/examples/scanner.jpg";
+import post2 from "assets/images/examples/echo.jpg";
+import post3 from "assets/images/examples/irm.jpg";
 
 function Places() {
   return (

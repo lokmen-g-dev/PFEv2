@@ -31,7 +31,7 @@ import Footer from "pages/Specialite/sections/Footer";
 import routes from "routes";
 
 // Images
-import bgImage from "assets/images/r.jpg";
+import bgImage from "assets/images/img.jpg";
 
 function Specialite() {
   return (

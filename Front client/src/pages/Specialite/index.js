@@ -25,17 +25,18 @@ import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 // Author page sections
 import Profile from "pages/Specialite/sections/Profile";
 import Posts from "pages/Specialite/sections/Posts";
+import Footer from "pages/Specialite/sections/Footer";
 
 // Routes
 import routes from "routes";
 
 // Images
-import bgImage from "assets/images/city-profile.jpg";
+import bgImage from "assets/images/img1.jpg";
 
 function Specialite() {
   return (
     <>
-      <DefaultNavbar routes={routes} light sticky />
+      <DefaultNavbar routes={routes} sticky transparent light/>
       <MKBox bgColor="white">
         <MKBox
           minHeight="25rem"
@@ -43,8 +44,8 @@ function Specialite() {
           sx={{
             backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
               `${linearGradient(
-                rgba(gradients.dark.main, 0.8),
-                rgba(gradients.dark.state, 0.8)
+                rgba(gradients.dark.main, 0.6),
+                rgba(gradients.dark.state, 0.6)
               )}, url(${bgImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -66,6 +67,7 @@ function Specialite() {
           <Profile />
           <Posts />
         </Card>
+        <Footer />
       </MKBox>
     </>
   );

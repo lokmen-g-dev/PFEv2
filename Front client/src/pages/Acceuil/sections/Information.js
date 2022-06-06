@@ -42,9 +42,7 @@ function Information() {
                 icon="touch_app"
                 title={
                   <>
-                    HORAIRES
-                    <br />
-                    D&apos;OUVERTURE
+                    Solution
                   </>
                 }
               />
@@ -52,13 +50,7 @@ function Information() {
                 image={bgBack}
                 title={
                   <>
-                    Lundi - Vendredi 8:00 - 19:00
-                    <br />
-                    <br />
-                    Samedi 8:00 - 14:00
-                    <br />
-                    <br />
-                    Dimanche Fermé
+                    SD-WAN
                   </>
                 }
               />

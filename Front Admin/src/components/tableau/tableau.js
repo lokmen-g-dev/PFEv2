@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddButton from "./Put";
 import { Button } from "@material-ui/core";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme();
 
 export default function DataTable() {
   const [tableData, setTableData] = useState([]);
@@ -27,15 +30,32 @@ export default function DataTable() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 100 },
     { field: "name", headerName: "Name", width: 130 },
-    { field: "password", headerName: "Password", width: 110 },
     { field: "email", headerName: "Email", width: 200 },
     { field: "tel", headerName: "Tel", width: 140 },
+    {
+      field: "actionss",
+      headerName: "Modifier",
+      type: "actions",
+      width: 100,
 
+      renderCell: (params) => {
+        const id = params.getValue(params.id, "id");
+        return (
+          <Button
+            onClick={() => {}}
+            style={{ width: "100%", height: "100%", color: "orange" }}
+          >
+            <AddButton id={id} />
+          </Button>
+        );
+
+        // <GridActionsCellItem icon={<EditIcon />} label="Edit" />,
+      },
+    },
     {
       field: "actions",
-      headerName: "Delete",
+      headerName: "Supprimer",
       type: "actions",
       width: 100,
 
@@ -49,7 +69,7 @@ export default function DataTable() {
             onClick={() => {
               onClick();
             }}
-            style={{ width: "100%", height: "100%", color: "#76abec" }}
+            style={{ width: "100%", height: "100%", color: "red" }}
           >
             <DeleteIcon></DeleteIcon>
           </Button>
@@ -58,47 +78,36 @@ export default function DataTable() {
         // <GridActionsCellItem icon={<EditIcon />} label="Edit" />,
       },
     },
-    {
-      field: "actionss",
-      headerName: "Edit",
-      type: "actions",
-      width: 100,
-
-      renderCell: (params) => {
-        const id = params.getValue(params.id, "id");
-        return (
-          <Button
-            onClick={() => {}}
-            style={{ width: "100%", height: "100%", color: "#76abec" }}
-          >
-            <AddButton id={id} />
-          </Button>
-        );
-
-        // <GridActionsCellItem icon={<EditIcon />} label="Edit" />,
-      },
-    },
+    
   ];
 
   return (
+    <ThemeProvider theme={theme}>
     <div
       style={{
         backgroundColor: "transparent",
-        border: "0px",
-        borderRadius: "10px",
         height: 450,
-        width: "60%",
-        marginLeft: 300,
-        marginTop: 70,
+        marginTop: 50,
+         width:"100%"
       }}
     >
       <DataGrid
+      sx={{
+        boxShadow: 2,
+        borderColor: 'primary.light',
+        '& .MuiDataGrid-cell:hover': {
+          color: 'primary.main',
+        },
+        width:"100%"
+      }}
+      
         rows={tableData}
         columns={columns}
         pageSize={6}
         rowsPerPageOptions={[5]}
-        checkboxSelection
       />
     </div>
+    
+    </ThemeProvider>
   );
 }
