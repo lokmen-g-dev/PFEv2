@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import { makeStyles } from "@material-ui/core/styles";
 import Widget from "./Widget";
 import Senn from "./conf";
-import DataGridDemo from "./Datatable";
+import DataPolicy from "./Data_Policy";
 
 
 import axios from "axios";
@@ -88,7 +88,7 @@ export default function Policy() {
 
       <div className="homeContainer">
         <div className="widgets">
-        <DataGridDemo/>
+        <DataPolicy/>
           
         </div>
         <div className="charts">

@@ -3,7 +3,7 @@ const opts = { toJSON: { virtuals: true } };
 
 const IPSchema = new mongoose.Schema({
  
-    ip: {
+    ips: {
       type: String,
      
     }

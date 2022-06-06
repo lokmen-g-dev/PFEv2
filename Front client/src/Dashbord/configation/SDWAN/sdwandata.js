@@ -9,7 +9,7 @@ import { Button } from "@material-ui/core";
 
 
 const handleDelete=(id)=>{
-  axios.delete(`http://localhost:5000/Ajouter/delete/${id}`, ).then((res) => {
+  axios.delete(`http://localhost:5000/Client/sdwan`, ).then((res) => {
     console.log(res.data)
     window.location.reload(true);
   })
@@ -21,30 +21,24 @@ const handleDelete=(id)=>{
 
 const columns = [
   {
-    field: 'http_methodss',
-    headerName: 'Nom',
+    field: 'zone ',
+    headerName: 'zone ',
     width: 190,
    
   },
   {
-    field: 'ip',
-    headerName: 'IP address',
+    field: 'Members',
+    headerName:'Members',
     width: 190,
     
   },
   {
-    field: 'user',
-    headerName: 'Nom utilisateur ',
+    field: 'Memberss',
+    headerName: 'Memberss',
     width: 190,
 
   },
-  {
-    field: 'password',
-    headerName: 'Mot de passe',
-    width: 210,
-   
-  
-  },
+ 
 
   {
     field: 'actions',
@@ -79,7 +73,7 @@ const columns = [
 
 
 
-export default function DataGridDemo() {
+export default function Datasdwa() {
 
   const [tableData, setTableData] = useState([]);
   useEffect(async () => {
@@ -89,7 +83,7 @@ export default function DataGridDemo() {
   }, []);
  
   useEffect(async () => {
-    await axios.get("http://172.29.24.51/api/v2/cmdb/firewall/policy/",{ headers: {"Authorization" : `${tableData}`} } ) .then((res) => {
+    await axios.get("http://localhost:5000/Client/sdwan") .then((res) => {
       setTableData(res.data);
     });
   }, []);
@@ -97,6 +91,7 @@ export default function DataGridDemo() {
 
   return (
     <div style={{ marginTop:'', height: 400, width: '100%' }}>
+      FortiGate : Configuration SD-WAN
       <DataGrid
         rows={tableData}
         columns={columns}

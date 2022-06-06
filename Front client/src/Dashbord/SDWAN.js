@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import { makeStyles } from "@material-ui/core/styles";
 import Widget from "./Widget";
 import Senn from "./conf";
-import DataPolicy from "./Data_Policy";
+import DataPolicy from "./Datatable_SDWAN";
 
 
 import TextField from '@mui/material/TextField';

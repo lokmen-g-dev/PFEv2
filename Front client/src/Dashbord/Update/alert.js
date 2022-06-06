@@ -4,21 +4,18 @@ import Envoyer from "./Env";
 import DataTable from "./table";
 import AddButton from "./Add";
 const Set = () => {
-
-        
-
-  
   return (
     <div className="list">
-      <Sidebar/>
+      <Sidebar />
       <div className="listContainer">
-        <NavBar/>
-        <div style={{marginLeft:1200,marginTop:10, marginBottom:7, }} ><AddButton /></div>
+        <NavBar />
+        <div style={{ marginLeft: 1200, marginTop: 10, marginBottom: 7 }}>
+          <AddButton />
+        </div>
         <DataTable />
-  
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Set
+export default Set;

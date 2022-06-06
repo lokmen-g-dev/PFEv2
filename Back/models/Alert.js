@@ -1,26 +1,28 @@
-const { object } = require("@hapi/joi");
 const mongoose= require("mongoose");
-const Operateur = require("./operateur_model");
 const opts = { toJSON: { virtuals: true } };
 
 const alertSchema = new mongoose.Schema({
  
     Objet: {
       type: String,
+      required: true // I'm writting about such one
      
     },
-    discription:{
+    description:{
       type: String,
+      required: true // I'm writting about such one
+
          },
-    
-    nb:{
-
-      type:Number,
-      value:1
-
+   
+    Operateur:{
+      type:String
     },
-    Operateur:{ type: mongoose.Types.ObjectId, ref: "Operateur" },
-    Client:{ type: mongoose.Types.ObjectId, ref: "Ajouter" }
+    Client:{ type: mongoose.Types.ObjectId, ref: "Ajouter" },
+  
+      Reponse:{
+        type:String,
+      }
+    
        
   },opts);
   

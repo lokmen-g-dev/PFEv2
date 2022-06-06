@@ -16,16 +16,18 @@ Coded by www.creative-tim.com
 // @mui material components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
+
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import InputBase from "@mui/material/InputBase";
+import { styled } from "@mui/material/styles";
 
 // Material Kit 2 React example components
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -38,12 +40,45 @@ import axios from "axios";
 import bgImage from "assets/images/tt.jpg";
 import { useNavigate } from "react-router-dom";
 
+const BootstrapInput = styled(InputBase)(({ theme }) => ({
+  "label + &": {
+    marginTop: theme.spacing(3),
+  },
+  "& .MuiInputBase-input": {
+    borderRadius: 4,
+    position: "relative",
+    backgroundColor: theme.palette.background.paper,
+    border: "1px solid #ced4da",
+    fontSize: 16,
+    padding: "10px 26px 10px 12px",
+    transition: theme.transitions.create(["border-color", "box-shadow"]),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    "&:focus": {
+      borderRadius: 4,
+      borderColor: "#80bdff",
+      boxShadow: "0 0 0 0.2rem rgba(0,123,255,.25)",
+    },
+  },
+}));
+
 function SignUpBasic() {
   const [admin, setadmin] = useState("");
   const Navigate = useNavigate();
   const handleChange = (e) => {
     setadmin({ ...admin, [e.target.name]: e.target.value });
-    console.log(admin)
+    console.log(admin);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,7 +90,7 @@ function SignUpBasic() {
       .then((res) => {
         console.log(res.data);
         Navigate(`/validation/${res.data.token}/${res.data.id}`);
-      
+
         //  window.location.href = "/overview";
       })
       .catch((err) => {
@@ -64,6 +99,10 @@ function SignUpBasic() {
   };
 
   const [operateur, Setoperateur] = useState([]);
+
+  //const handleChange = (event) => {
+  //  Setoperateur(event.target.value);
+  // };
 
   useEffect(() => {
     axios.get("http://localhost:5000/operateur/overview").then((res) => {
@@ -177,30 +216,38 @@ function SignUpBasic() {
                     <Grid item xs={12} md={20}>
                       <MKInput
                         variant="standard"
-                        label=" Tel"
-                        type="Tel"
+                        label="tel"
                         name="tel"
                         InputLabelProps={{ shrink: true }}
                         fullWidth
                       />
-                    </Grid>
-                    <Grid item xs={12} md={20}>
-                      <RadioGroup>
-                        {operateur.map((result) => {
-                          
-                          return (
-                            <div>
-                              <FormControlLabel
-                                value={result.name}
-                                control={<Radio name="operateur"/>}
-                                label={result.name}
-                                name="radio"
-                               
-                              />
-                            </div>
-                          ); 
-                        })}
-                      </RadioGroup>
+                    </Grid>{" "}
+                    <Grid item xs={50} md={90} name="operateur">
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Operateur
+                        </InputLabel>
+
+                        <Select
+                          input={<BootstrapInput />}
+                          labelId="demo-simple-select-label"
+                          label="Operateur"
+                          name="operateur"
+                          onChange={handleChange}
+                        >
+                          {operateur.map((e, index = 0) => {
+                            return (
+                              <MenuItem
+                                name="lala"
+                                key={index + 1}
+                                value={e.name}
+                              >
+                                {e.name}
+                              </MenuItem>
+                            );
+                          })}
+                        </Select>
+                      </FormControl>
                     </Grid>
                     <Grid container item justifyContent="center">
                       <MKButton

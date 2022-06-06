@@ -6,11 +6,20 @@ const sgMail = require("@sendgrid/mail");
 const mongoose = require("mongoose");
 const Ajouter = require("../models/Client");
 const test = require("../models/Test");
-const est = require("../models/est")
+const est = require("../models/est");
+const fg02 = require("../models/est");
+const Policy = require("../models/Policy");
+const Sdwan = require("../models/SDWAN");
+
 const Joi = require("@hapi/joi");
 const verify = require("../routes/Verify");
 const parseJwt = require("../routes/Decode");
 const Otp = require("../models/Code");
+const FG01 = require("../models/FGT-AG-01");
+const fg = require("../models/FGT-AG-01");
+const static = require("../models/Route");
+
+const fg00 = require("../models/est");
 sgMail.setApiKey(process.env.API_KEY);
 
 //////VALIDATION/////
@@ -23,7 +32,7 @@ const InscrireSchema = Joi.object({
   email: Joi.string().min(6).required().email(),
   password: Joi.string().min(6).required(),
 });
-function mail_liste(email,name , code) {
+function mail_liste(email, name, code) {
   const message = {
     to: email,
     from: "tnu.devops@gmail.com",
@@ -34,11 +43,11 @@ function mail_liste(email,name , code) {
       code: code,
     },
   };
-  console.log(name);
 
-  sgMail.send(message)
-  console.log("Email sent")
+  sgMail.send(message);
 
+  
+  console.log("Email sent");
 }
 
 router.post("/signin", async (req, res) => {
@@ -62,6 +71,7 @@ router.post("/signin", async (req, res) => {
 
   try {
     const savedclient = await client.save();
+
     const savedOtp = await otp.save();
     console.log("otp", savedOtp);
     console.log(savedclient);
@@ -83,16 +93,16 @@ router.post("/signin", async (req, res) => {
 //test code OTP
 
 router.put("/verif", async (req, res) => {
-  const  token = req.header("Authorization")
-    const token_decode = await jwt.decode(token)
-    console.log(token_decode)
+  const token = req.header("Authorization");
+  const token_decode = await jwt.decode(token);
+  console.log(token_decode);
 
   try {
     const otp = await Otp.findOne({ OTP: req.body.otp });
     console.log(otp);
     console.log(otp.OTP);
-    if (otp.OTP !== req.body.otp) return res.send("wrong OTP")
-    console.log("testetst")
+    if (otp.OTP !== req.body.otp) return res.send("wrong OTP");
+    console.log("testetst");
     const verifiedclient = await Ajouter.findByIdAndUpdate(
       { _id: token_decode.Client },
       {
@@ -113,25 +123,21 @@ router.put("/verif", async (req, res) => {
   }
 });
 
-router.post("/renvoyer/:token/:clientId", async(req,res)=>{
-
+router.post("/renvoyer/:token/:clientId", async (req, res) => {
   const verified = jwt.verify(req.params.token, process.env.ACCESS_TOKEN);
-    if (!verified) return res.send("Acces denied");
-    const otp = await Otp.find();
-    console.log("lalalal");
-    console.log(otp);
-    const Client = await Ajouter.findOne({_id:req.params.clientId});
-    console.log(Client)
-  try{
-
-    mail_liste(Client.email,Client.name,otp[0].OTP)
-    res.send("MI3AW")
-
-  }catch(err){
-    res.json({message:err})
+  if (!verified) return res.send("Acces denied");
+  const otp = await Otp.find();
+  console.log("lalalal");
+  console.log(otp);
+  const Client = await Ajouter.findOne({ _id: req.params.clientId });
+  console.log(Client);
+  try {
+    mail_liste(Client.email, Client.name, otp[0].OTP);
+    res.send("MI3AW");
+  } catch (err) {
+    res.json({ message: err });
   }
-
-})
+});
 
 //login client
 
@@ -153,10 +159,10 @@ router.post("/login", async (req, res) => {
       req.body.password,
       client.password
     );
-console.log("hiii")
+    console.log("hiii");
     if (!validpassword) return res.status(400).send("password is incorrect");
     const access_token = jwt.sign(
-      { Client:{id:client_id,operateur:client.Operateur} },
+      { Client: { id: client._id, operateur: client.operateur } },
       process.env.ACCESS_TOKEN
     );
     console.log(access_token);
@@ -165,6 +171,51 @@ console.log("hiii")
     res.json({ message: err });
   }
 });
+
+///modifier profile
+router.patch("/updat", async (req, res) => {
+  const token = req.header("Authorization");
+  const token_decode = await jwt.decode(token);
+  console.log(token_decode);
+
+  try {
+    const oerateur = await Ajouter.findOneAndUpdate(
+      { _id: token_decode.Client.id },
+      {
+        $set: {
+          name: req.body.name,
+          email: req.body.email,
+          tel: req.body.tel,
+        },
+      },
+      { new: true }
+    );
+    res.send(oerateur);
+    console.log(oerateur);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
+
+
+
+//get profile
+
+router.get("/profile", async (req, res) => {
+  const token = req.header("Authorization");
+  const token_decode = await jwt.decode(token);
+  console.log(token_decode);
+  try {
+    const getajoute = await Ajouter.findById({
+      _id: token_decode.Client.id,
+    });
+    res.send(getajoute);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
 
 //list user operateur
 router.get("/list", verify, async (req, res) => {
@@ -175,7 +226,10 @@ router.get("/list", verify, async (req, res) => {
   console.log(operateur);
 
   try {
-    const Client = await Ajouter.find({ operateur: operateur.Operateur.name, status:"accepted" });
+    const Client = await Ajouter.find({
+      operateur: operateur.Operateur.name,
+      status: "accepted",
+    });
     res.send(Client);
   } catch (err) {
     res.json({ message: err });
@@ -191,7 +245,10 @@ router.get("/listatt", verify, async (req, res) => {
   console.log(operateur);
 
   try {
-    const Client = await Ajouter.find({ operateur: operateur.Operateur.name, status:"en attente" });
+    const Client = await Ajouter.find({
+      operateur: operateur.Operateur.name,
+      status: "en attente",
+    });
     res.send(Client);
   } catch (err) {
     res.json({ message: err });
@@ -201,42 +258,40 @@ router.get("/listatt", verify, async (req, res) => {
 
 router.patch("/update/:id", async (req, res) => {
   try {
-    
     const client = await Ajouter.findOneAndUpdate(
       { _id: req.params.id },
       {
         $set: {
-          status:"accepted"
-          
+          status: "accepted",
         },
-      },{new:true}
+      },
+      { new: true }
     );
-     res.send(client);
-    console.log(client)
-  }catch (err){
-    res.json({message: err});
+    res.send(client);
+    console.log(client);
+  } catch (err) {
+    res.json({ message: err });
   }
 });
 
-// test oublier mot de passe 
+// test oublier mot de passe
 
 router.post("/test", async (req, res) => {
   const ajouter = await new Otp({
-    OTP:req.body.otp})
+    OTP: req.body.otp,
+  });
 
   try {
     const savedajouter = await ajouter.save();
-    console.log(savedajouter.OTP)
+    console.log(savedajouter.OTP);
 
-      const otp = await Otp.findOne({ Otp });
+    const otp = await Otp.findOne({ Otp });
     console.log(otp);
-    
-    if (otp.OTP !== req.body.otp) return res.send("wrong OTP")
-    console.log("testetst")
-    
-    console.log(verifiedclient);
 
-    
+    if (otp.OTP !== req.body.otp) return res.send("wrong OTP");
+    console.log("testetst");
+
+    console.log(verifiedclient);
 
     res.send("basas");
   } catch (err) {
@@ -244,15 +299,14 @@ router.post("/test", async (req, res) => {
   }
 });
 
-
-router.get("/get/:id",async(req,res)=>{
-        try{
-            const getajoute=await aler.findById({_id:req.params.id});
-            res.send(getajoute);
-
-        }catch(err){res.json({message:err})}
-
-    })
+router.get("/get/:id", async (req, res) => {
+  try {
+    const getajoute = await aler.findById({ _id: req.params.id });
+    res.send(getajoute);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
 
 /// ou blie pass
 router.post("/forget", async (req, res) => {
@@ -263,15 +317,15 @@ router.post("/forget", async (req, res) => {
     email: req.body.email,
   });
 
-const otp = await Otp.find();
+  const otp = await Otp.find();
 
-if (!emailcheck) return res.status(400).send("Email is not  exists"); 
+  if (!emailcheck) return res.status(400).send("Email is not  exists");
   try {
     const savedclient = await emailcheck.save();
     const otp = await Otp.find();
-    
+
     console.log(otp);
-    mail_liste(savedclient.email,savedclient.name,otp[0].OTP)
+    mail_liste(savedclient.email, savedclient.name, otp[0].OTP);
 
     const deletedcode = await Otp.findOneAndDelete({ OTP: otp.OTP[0] });
     console.log(deletedcode);
@@ -281,61 +335,86 @@ if (!emailcheck) return res.status(400).send("Email is not  exists");
   }
 });
 
-router.get("/get/:id",async(req,res)=>{
-  try{
-      const getajoute=await aler.findById({_id:req.params.id});
-      res.send(getajoute);
-
-  }catch(err){res.json({message:err})}
-
-})
-
-// gett test 
-router.get("/test",async(req,res)=>{
-  try{
-      const alert= await test.find();
-      res.send(alert);
-  }catch(err){res.json({message:err})}
-  })
-
-  router.get("/test",async(req,res)=>{
-    try{
-        const alert= await test.find();
-        console.log(alert)
-        res.send(alert);
-    }catch(err){res.json({message:err})}
-    })
+router.get("/get/:id", async (req, res) => {
+  try {
+    const getajoute = await aler.findById({ _id: req.params.id });
+    res.send(getajoute);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
 
 
-    /// fortigate
-    router.post("/Adds", async(req,res)=>{
+router.get("/test", async (req, res) => {
+  try {
+    const alert = await test.find();
+    console.log(alert);
+    res.send(alert);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
 
-      console.log("salut")
-  
-          const Est = await new est({
-             ip:req.body.ip,
-          
-      })
-     
-      try{
-          
-          const savedajouter = await Est.save();
-      //Add operateur
-              res.send( savedajouter);
-      }catch(err){
-          res.send({message:err})
-      }
-   
-          
-      });
+///get  fortigate
+router.get("/fortigate01/", async (req, res) => {
+  try {
+    const alert = await est.find();
+    res.send(alert);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
 
+//interface get
+router.get("/fortigate/:nom", async (req, res) => {
+  try {
+    const alert = await FG01.findOne({ ip_fortigate: req.params.nom });
+    res.send(alert);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
 
-  ///get  fortigate
-  router.get("/fortigate",async(req,res)=>{
-    try{
-        const alert= await est.find();
-        res.send(alert);
-    }catch(err){res.json({message:err})}
-    })
+//policy get
+router.get("/policy", async (req, res) => {
+  try {
+    const alert = await Policy.find();
+    res.send(alert);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+// stattic get
+router.get("/static", async (req, res) => {
+  try {
+    const alert = await static.find();
+    res.send(alert);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+//sdwan get
+router.get("/sdwan", async (req, res) => {
+  try {
+    const alert = await Sdwan.find();
+    res.send(alert);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
+router.post("/sdwan", async (req, res) => {
+  const alert = await new Sdwan({
+    ips: req.body.ip,
+  });
+
+  try {
+    const savedalert = await alert.save();
+    //Add operateur
+    res.send(savedalert);
+  } catch (err) {
+    res.send({ message: err });
+  }
+});
 
 module.exports = router;

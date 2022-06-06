@@ -2,10 +2,10 @@
   "name": "haythem-3eryen",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon Server.js"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "mongoose": "^6.2.4",
     "nodemailer": "^6.7.2",
     "nodemon": "^2.0.15",
+    "socket.io": "^4.5.1",
     "uui": "^1.0.7"
   },
   "devDependencies": {

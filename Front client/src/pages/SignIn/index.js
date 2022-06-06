@@ -51,11 +51,10 @@ function SignInBasic() {
     axios
       .post("http://localhost:5000/Client/login", admin)
       .then((res) => {
-        localStorage.setItem("access_token", res.data.access_token);
-        localStorage.setItem("id", res.data.id);
-        console.log(res.data.id);
+        console.log(res.data)
+        localStorage.setItem("access_token", res.data);
+    
 
-        console.log(res.data.access_token);
         if (localStorage.getItem("access_token")) {
           Navigate(`/home/${res.data.id}`);
         }

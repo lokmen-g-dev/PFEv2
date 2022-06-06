@@ -6,8 +6,7 @@ import Modal from '@mui/material/Modal';
 import { makeStyles } from "@material-ui/core/styles";
 import Widget from "./Widget";
 import Senn from "./conf";
-
-
+import DataGridDemo from "./Datastatic";
 import TextField from '@mui/material/TextField';
 import axios from "axios";
 
@@ -88,7 +87,7 @@ export default function Static() {
 
       <div className="homeContainer">
         <div className="widgets">
-
+        <DataGridDemo />
           
         </div>
         <div className="charts">

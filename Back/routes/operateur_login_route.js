@@ -4,14 +4,13 @@ const bcrypt = require("bcryptjs");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const Operateur = require("../models/operateur_model");
-const Oublier = require("../models/Forgot")
+const Oublier = require("../models/Forgot");
 const Joi = require("@hapi/joi");
 
 const loginschema = Joi.object({
   email: Joi.string().min(6).required().email(),
   password: Joi.string().min(6).required(),
 });
-
 
 //login
 router.post("/login", async (req, res) => {
@@ -23,7 +22,7 @@ router.post("/login", async (req, res) => {
     const operateur = await Operateur.findOne({ email: req.body.email });
     if (!operateur) return res.status(403).send("Account doesn't exists");
     console.log(operateur);
-    
+
     const validpassword = await bcrypt.compare(
       req.body.password,
       operateur.password
@@ -31,8 +30,7 @@ router.post("/login", async (req, res) => {
     //console.log(validpassword);
     if (!validpassword) return res.status(400).send("password is incorrect");
     const access_token = jwt.sign(
-      { Operateur:{id:operateur.id,name:operateur.name}
-    },
+      { Operateur: { id: operateur.id, name: operateur.name } },
       process.env.ACCESS_TOKEN
     );
     console.log(access_token);
@@ -41,10 +39,6 @@ router.post("/login", async (req, res) => {
     res.json({ message: err });
   }
 });
-
-
-
-
 
 //delete
 router.delete("/delete/:id", async (req, res) => {
@@ -59,7 +53,6 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
-
 //add operateur
 
 router.post("/signin", async (req, res) => {
@@ -68,42 +61,36 @@ router.post("/signin", async (req, res) => {
   });
 
   if (emailcheck) return res.status(400).send("Email already exists");
-  const salt=await bcrypt.genSalt(10);
-  const hashedpassword=await bcrypt.hash(req.body.password,salt);
+  const salt = await bcrypt.genSalt(10);
+  const hashedpassword = await bcrypt.hash(req.body.password, salt);
   const operateur = await new Operateur({
     name: req.body.name,
-    password:hashedpassword,
+    password: hashedpassword,
     email: req.body.email,
     tel: req.body.tel,
   });
   const savedOperateur = await operateur.save();
-      try{
-             
-    
-          const message = {
-            to: savedOperateur.email,
-            from:'tnu.devops@gmail.com',
-            subject: "Email confirmation",
-            templateId: 'd-71496dec14d54a7b9e9b2904853bd77e',
-            
-          };
-       
-          sgMail
-          .send(message)
-          .then(() => {
-            console.log('Email sent')
-          })
-         
-          
- 
-    
-       }catch(err){res.json({message:err})}
-      
+  try {
+    const message = {
+      to: savedOperateur.email,
+      from: "tnu.devops@gmail.com",
+      subject: "Email confirmation",
+      templateId: "d-71496dec14d54a7b9e9b2904853bd77e",
+    };
+    console.log("lalalalallalalalalalal")
+
+    sgMail.send(message).then(() => {
+      console.log("Email sent");
+    });
+  } catch (err) {
+    res.json({ message: err });
+  }
 });
 
 router.get("/overview", async (req, res) => {
   try {
     const operateur = await Operateur.find();
+    console.log(operateur)
     res.send(operateur);
   } catch (err) {
     res.json({ message: err });
@@ -130,38 +117,29 @@ router.get("/gets", async (req, res) => {
   }
 });
 
-
-
-
-
-
-
- 
-
 // update
 router.patch("/update/:id", async (req, res) => {
   try {
-    const salt=await bcrypt.genSalt(10);
-    const hashedpassword=await bcrypt.hash(req.body.password,salt);
+    const salt = await bcrypt.genSalt(10);
+    const hashedpassword = await bcrypt.hash(req.body.password, salt);
     const operateur = await Operateur.findOneAndUpdate(
       { _id: req.params.id },
       {
         $set: {
-          name:req.body.name,
-          email:req.body.email,
-          password:hashedpassword,
-          tel:req.body.tel
-          
+          name: req.body.name,
+          email: req.body.email,
+          password: hashedpassword,
+          tel: req.body.tel,
         },
-      },{new:true}
+      },
+      { new: true }
     );
-     res.send(operateur);
-    console.log(operateur)
-  }catch (err){
-    res.json({message: err});
+    res.send(operateur);
+    console.log(operateur);
+  } catch (err) {
+    res.json({ message: err });
   }
 });
-
 
 // forget password
 
@@ -181,7 +159,7 @@ router.post("/forget", async (req, res) => {
         email: Operateur.email,
       },
     };
-    console.log("sennd")
+    console.log("sennd");
 
     sgMail
       .send(message)
@@ -191,8 +169,6 @@ router.post("/forget", async (req, res) => {
       .catch((error) => {
         console.error(error);
       });
-
-  
   } catch (err) {
     res.send({ message: err });
   }
@@ -201,71 +177,62 @@ router.post("/forget", async (req, res) => {
 //accepter client
 router.patch("/update/:id", async (req, res) => {
   try {
-    
     const operateur = await client.findOneAndUpdate(
       { _id: req.params.id },
       {
         $set: {
-          name:req.body.name,
-          email:req.body.email,
-          password:hashedpassword,
-          tel:req.body.tel
-          
+          name: req.body.name,
+          email: req.body.email,
+          password: hashedpassword,
+          tel: req.body.tel,
         },
-      },{new:true}
+      },
+      { new: true }
     );
-     res.send(operateur);
-    console.log(operateur)
-  }catch (err){
-    res.json({message: err});
+    res.send(operateur);
+    console.log(operateur);
+  } catch (err) {
+    res.json({ message: err });
   }
 });
 
-
-router.get("/get",async(req,res)=>{
-  const  token = req.header("Authorization")
-  const token_decode = await jwt.decode(token)
-  console.log(token_decode)
-  try{
-   
-      const getajoute=await Operateur.findById({_id:token_decode.Operateur.id});
-      res.send(getajoute);
-
-  }catch(err){res.json({message:err})}
-
-})
+router.get("/get", async (req, res) => {
+  const token = req.header("Authorization");
+  const token_decode = await jwt.decode(token);
+  console.log(token_decode);
+  try {
+    const getajoute = await Operateur.findById({
+      _id: token_decode.Operateur.id,
+    });
+    res.send(getajoute);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
 
 //update operateur
 router.patch("/updat", async (req, res) => {
- const  token = req.header("Authorization")
-  const token_decode = await jwt.decode(token)
-  console.log(token_decode)
-
+  const token = req.header("Authorization");
+  const token_decode = await jwt.decode(token);
+  console.log(token_decode);
 
   try {
-    
     const oerateur = await Operateur.findOneAndUpdate(
       { _id: token_decode.Operateur.id },
       {
         $set: {
-          name:req.body.name,
-          email:req.body.email,
-          tel:req.body.tel
-          
+          name: req.body.name,
+          email: req.body.email,
+          tel: req.body.tel,
         },
-      },{new:true}
+      },
+      { new: true }
     );
-     res.send(oerateur);
-    console.log(oerateur)
-  }catch (err){
-    res.json({message: err});
+    res.send(oerateur);
+    console.log(oerateur);
+  } catch (err) {
+    res.json({ message: err });
   }
 });
-
-
-
-
-
-
 
 module.exports = router;

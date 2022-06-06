@@ -9,7 +9,7 @@ import AddButto from './Ajoute';
 
 
 const handleDelete=(id)=>{
-  axios.delete(`http://localhost:5000/Ajouter/delete/${id}`, ).then((res) => {
+  axios.delete(`http://localhost:5000/Client/fortigate`, ).then((res) => {
     console.log(res.data)
     window.location.reload(true);
   })
@@ -27,24 +27,18 @@ const columns = [
    
   },
   {
-    field: 'ip',
+    field: 'mgmt_if',
     headerName: 'IP address & Masque de réseau',
-    width: 190,
+    width: 280,
     
   },
   {
-    field: 'mgmt_if',
+    field: 'ip',
     headerName: 'permettre l accès ',
-    width: 190,
+    width: 250,
 
   },
-  {
-    field: 'password',
-    headerName: 'Mot de passe',
-    width: 210,
-   
-  
-  },
+
 
   {
     field: 'actions',
@@ -91,16 +85,17 @@ export default function Datainterface() {
 
   return (
     
-    <div style={{ marginTop:'', height: 400, width: '100%' }}>
+    <div style={{ marginTop:'', height: 500, width: '100%' }}>
    
       <DataGrid
         rows={tableData}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={7}
+        rowsPerPageOptions={[7]}
         checkboxSelection
         disableSelectionOnClick
       />
+
 
     </div>
   );

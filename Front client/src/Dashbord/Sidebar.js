@@ -11,7 +11,8 @@ import PolicyIcon from '@mui/icons-material/Policy';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import LocalPostOfficeIcon from '@mui/icons-material/LocalPostOffice';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-
+import AltRouteIcon from '@mui/icons-material/AltRoute';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 //import { DarkModeContext } from "../../context/darkModeContext";
 function  Sidebar(){
@@ -64,19 +65,36 @@ function  Sidebar(){
 
           <p className="title">Configuration</p>
          
+          <Link to="/interface" style={{ textDecoration: "none" }}> 
+          <li>
+            <ArrowUpwardIcon className="icon" />
+            <span>Interface</span>
+          </li>
+          </Link>
           
-          <Link to="/Policy" style={{ textDecoration: "none" }}> 
+          <Link to="/Poliicy" style={{ textDecoration: "none" }}> 
           <li>
             <PolicyIcon className="icon" />
             <span>Policy</span>
           </li>
           </Link>
+          <Link to="/static" style={{ textDecoration: "none" }}> 
           <li>
+
+            <AltRouteIcon className="icon" />
+            <span>Static</span>
+          </li>
+          </Link>
+          <Link to="/sdwan" style={{ textDecoration: "none" }}> 
+          <li>
+
             <AcUnitIcon className="icon" />
             <span>SD-WAN</span>
           </li>
+          </Link>
+
           <p className="title">USER</p>
-          <Link to="/info" style={{ textDecoration: "none" }}>
+          <Link to="/Update" style={{ textDecoration: "none" }}>
           <li>
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>

@@ -23,13 +23,20 @@ import Validation from"./pages/SignUp/Validation";
 //import New from "./pages/new/New";
 import Add from "Dashbord/Add/Add";
 import New from "./Dashbord/New";
+import Interface from "Dashbord/Interface";
+import Datainterface from "Dashbord/configation/interface/interface";
 import { productInputs, userInputs } from "./formSource";
-import Mise from "Dashbord/Update/Mise";
 import Set from "Dashbord/Update/alert"
+import Mise from "Dashbord/profile/Update";
+
 import Log from "Dashbord/Update/Log";
 import Info from "Dashbord/Update/Info";
 import Oublier from "pages/SignIn/Oublier";
 import Code from "pages/SignIn/Code";
+import DataPolicy from "Dashbord/configation/Policy/policy";
+
+import Sdwan from "Dashbord/configation/SDWAN/sd"
+import Staticc from "Dashbord/configation/static/static";
 
 import Changer from "pages/SignIn/Changer"
 export default function App() {
@@ -77,9 +84,14 @@ export default function App() {
             <Route path="/code" element={<Code />} />
             <Route path="/attente" element={<Attente />} />
             <Route path="/changer" element={<Changer />} />
+            <Route path="/interface" element={<Datainterface />} />
+            <Route path="/poliicy" element={<DataPolicy />} />
+            <Route path="/sdwan" element={<Sdwan/>} />
+            <Route path="/static" element={<Staticc/>} />
             
             <Route path="/validation/:token/:id" element={<Validation />} />
             <Route path="/Update" element={<Mise />} />
+            <Route path="/Policy" element={<Policy />} />
             <Route path="/listefg" element={<List_FG />} />
             <Route path="/set" element={<Set />} />
 

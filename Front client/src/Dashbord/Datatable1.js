@@ -82,11 +82,13 @@ const columns = [
 export default function DataGridDemo() {
 
   const [tableData, setTableData] = useState([]);
+  const [tableData1, setTableData1] = useState([]);
   useEffect(async () => {
-    await axios.get("http://localhost:5000/Client/fortigate").then((res) => {
+    await axios.get("http://localhost:5000/Client/fortigate01").then((res) => {
       setTableData(res.data);
     });
   }, []);
+
  
 
   return (
@@ -101,6 +103,8 @@ export default function DataGridDemo() {
         checkboxSelection
         disableSelectionOnClick
       />
+     
+     
 
     </div>
   );

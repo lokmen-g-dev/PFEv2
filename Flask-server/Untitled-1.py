@@ -1,31 +1,3 @@
-
-from asyncio import wait
-from distutils.log import debug
-
-import mimetypes
-from telnetlib import STATUS
-import time
-from urllib import response
-from bson import ObjectId
-from flask import Flask ,Response, jsonify
-from pymongo  import MongoClient
-import pyFortiManagerAPI
-import json
-
-#recuperation de base
-client = MongoClient(host="localhost", port=27017)
-db = client["test"]
-print(db)
-coll_name = "ajoutes"
-coll = db[coll_name]
-app = Flask (__name__)
-
-
-#Members APT Route
-
-
-
-# recuperation adresse ip
 for req in coll.find({},{ 'name': 0 , 'user':0,  '_id':0, 'password':0 ,'__v': 0 }):
 
 
@@ -85,12 +57,12 @@ for x in data_dict['result']:
      B = x['data'][y]['name']
      C = x['data'][y]['mgmt_if']
      D = x['data'][y]['tunnel_ip']
-     if(x==0):
-         E ="h7srbHH13Hd0hgq3s4mmxchm3bkh8H"
-     elif(x==1):
-         E="5mqn8g9tbnd58hGqf30Qcm4H6jkp0H"
+     if y==0:
+        E ="h7srbHH13Hd0hgq3s4mmxchm3bkh8H"
+     elif y==1:
+        E="18y96sh3c58m0894dzr75bNszxfxG1"
      else:
-         E="jQgh8mHq9r4Qpd949961r6bpjkH3mj"
+        E="jQgh8mHq9r4Qpd949961r6bpjkH3mj"
      tab.append([A, B , C , E])
 
 print (tab)
@@ -116,37 +88,77 @@ for i in range(len(tab)):
     chema= "/logincheck"
   
 
-    time.sleep(5)
+  
     #les policy de fortigate
     chema_policy="/api/v2/cmdb/firewall/policy?access_token="
     url = (url1+ip01+chema_policy+tab[i][3])
+    print(url)
+    
     payload = ""
     headers = {}
 
-    response = requests.request("GET", url, headers=headers, data=payload)
+    response = requests.request("GET", url, headers=headers, data=payload , verify=False)
 
     print(response.text)
 
-
-    print(response.text)
     #output= response
+    #Get Policy
 
     json_object = json.loads(response.text)
     print(type(json_object))
-    with open("Policy.json", "w") as myfile:
+    x="Policy"f"{tab[i][1]}"".json"
+    with open(x, "w") as myfile:
         myfile.write(json.dumps(json_object, indent=4))
         print("export successful")
 
+    #Get Interface 
+    chema_policy="/api/v2/cmdb/system/interface?access_token="
+    url = (url1+ip01+chema_policy+tab[i][3])
+   
+    payload = ""
+    headers = {}
 
+    response = requests.request("GET", url, headers=headers, data=payload , verify=False)
 
-@app.route("/delet", methods=["DELETE"])
-def delete_user():
+    print(response.text)
+
+    json_object = json.loads(response.text)
+    print(type(json_object))
+    x="Interface"f"{tab[i][1]}"".json"
+    with open(x, "w") as myfile:
+        myfile.write(json.dumps(json_object, indent=4))
+        print("export successful")
     
-        return Response(
-        response= json.dumps(
-          {"message": "sorry connot deleted user"}),
-        status=500,
-        )
+    ##GET SDWAN
+    chema_policy="/api/v2/cmdb/system/sdwan/zone?access_token="
+    url = (url1+ip01+chema_policy+tab[i][3])
+   
+    payload = ""
+    headers = {}
 
-    
-app.run(host='localhost',port=8000, debug=True)
+    response = requests.request("GET", url, headers=headers, data=payload , verify=False)
+
+    print(response.text)
+    json_object = json.loads(response.text)
+    print(type(json_object))
+    x="SD-WAN"f"{tab[i][1]}"".json"
+    with open(x, "w") as myfile:
+        myfile.write(json.dumps(json_object, indent=4))
+        print("export successful")
+     
+     ##GET Static
+    chema_policy="/api/v2/cmdb/router/static/?access_token="
+    url = (url1+ip01+chema_policy+tab[i][3])
+   
+    payload = ""
+    headers = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload , verify=False)
+
+    print(response.text)
+    json_object = json.loads(response.text)
+    print(type(json_object))
+    x="Route Static"f"{tab[i][1]}"".json"
+    with open(x, "w") as myfile:
+        myfile.write(json.dumps(json_object, indent=4))
+        print("export successful")

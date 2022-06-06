@@ -27,20 +27,35 @@ const columns = [
    
   },
   {
-    field: 'ip',
-    headerName: 'IP address',
+    field: 'Dstaddr',
+    headerName: 'Dstaddr',
     width: 190,
     
   },
   {
-    field: 'mgmt_if',
-    headerName: 'Nom utilisateur ',
+    field: 'srcaddr',
+    headerName: 'srcaddr',
     width: 190,
 
   },
   {
-    field: 'password',
-    headerName: 'Mot de passe',
+    field: 'srcintf',
+    headerName: 'srcintf',
+    width: 210,
+   
+  
+  },
+  {
+    field: 'dstintf',
+    headerName: 'dstintf',
+    width: 210,
+   
+  
+  },
+  
+  {
+    field: 'NAT',
+    headerName: 'NAT',
     width: 210,
    
   
@@ -51,6 +66,7 @@ const columns = [
     headerName: 'Actions' ,
     type: 'actions',
     width: 190,
+
     
    
 
@@ -83,7 +99,7 @@ export default function DataPolicy() {
 
   const [tableData, setTableData] = useState([]);
   useEffect(async () => {
-    await axios.get("http://localhost:5000/Client/fortigate").then((res) => {
+    await axios.get("http://localhost:5000/Client/policy").then((res) => {
       setTableData(res.data);
     });
   }, []);
